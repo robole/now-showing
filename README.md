@@ -24,10 +24,10 @@ Browse the catalogue of movies that are showing in theaters to decide what movie
 	- Between 7.9 and 6.5 is coloured silver,
 	- Less than or equal to 6.5 and greater than 5.5 is coloured bronze,
 	- Less than 5.5 is coloured dark brown.
-1. You can click a "Show More" button to show the next most recent 20 movies that were/are showing, if available.
+1. You can click a "Show More" button to show the next most recent 20 movies that were/are showing, if more are available.
 1. The list of movies can be sorted by rating, duration and release date. They are sorted by rating (descending order) by default.
 1. The list of movies can be filtered by rating (min and max values).
-1. You can view the trailers quickly for each movie in a pop-up custom video player (videos are sourced from YouTube). If there is more than one trailer for a movie, you can cycle through them.
+1. You can view the trailers quickly for each movie in a pop-up custom video player. Videos are sourced from YouTube but some of the cruft from YouTube is blocked. If there is more than one trailer for a movie, you can cycle through them.
 1. The video player has keyboard support for all actions:
 	- <kbd>Spacebar</kbd>: Play/pause,
 	- <kbd>Right arrow</kbd>: Previous video,
@@ -41,7 +41,7 @@ The data is sourced from the [TMDB API v3](https://developers.themoviedb.org/3/g
 
 ## Why?
 
-I made this because I wanted a better way to decide which movie I would like to see in the cinema (movie theater). I found that existing solutions fall short of my expectations.
+I made this because I wanted a better way to decide which movie I would like to see in the cinema (movie theater). I found that existing solutions fell short of my expectations.
 
 ### Existing solutions
 
@@ -64,8 +64,8 @@ IMDB has an ["In Theaters"](https://www.imdb.com/movies-in-theaters/?ref_=nv_mv_
 1. [Sign up to TMDB](https://www.themoviedb.org/signup), then go to <https://www.themoviedb.org/settings/api> to create an API key.
 1. Clone this project.
 1. Create a new file called `.env` and add it to the project root folder. This is where we will store the API key. This follows [Vite's conventions for environment variables](https://vitejs.dev/guide/env-and-mode.html#env-files). Add the variable `VITE_API_KEY=123` replacing "123" with your actual API key.
-1. Go to the command-line, `cd` to to the project folder, and run the command `npm i` to install the project dependencies.
-1. Now, run the command `npm run dev` and the app should be running at <http://localhost:3000/>.
+1. Go to the command-line, `cd` to to the project folder, and install the project dependencies with your package manager of choice e.g `npm install` for npm.
+1. Now, run the script command `npm run dev` and the app should be running at <http://localhost:3000/>.
 
 ## Testing
 
