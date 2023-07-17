@@ -77,11 +77,6 @@
 			: "0";
 	}
 
-	function round(value, precision) {
-		let multiplier = Math.pow(10, precision || 0);
-		return Math.round(value * multiplier) / multiplier;
-	}
-
 	async function showTrailer() {
 		$selectedMovieTrailers = trailers;
 		$showVideoPlayer = true;
@@ -99,14 +94,14 @@
 	</p>
 	<div class="rating">
 		<span
-			class:excellent={round(rating, 1) >= 8 && ratingCount > 0}
-			class:good={round(rating, 1) < 8 &&
-				round(rating, 1) > 6.5 &&
+			class:excellent={formatRating(rating) >= 8 && ratingCount > 0}
+			class:good={formatRating(rating) < 8 &&
+				formatRating(rating) > 6.5 &&
 				ratingCount > 0}
-			class:ok={round(rating, 1) <= 6.5 &&
-				round(rating, 1) > 5.5 &&
+			class:ok={formatRating(rating) <= 6.5 &&
+				formatRating(rating) > 5.5 &&
 				ratingCount > 0}
-			class:bad={round(rating, 1) <= 5.5 && ratingCount > 0}
+			class:bad={formatRating(rating) <= 5.5 && ratingCount > 0}
 			class:unrated={ratingCount === 0}>{formatRating(rating)}</span
 		>
 		<span>{formatRatingCount(ratingCount)} votes</span>
