@@ -134,7 +134,7 @@
 		{/if}
 	</div>
 	<div class="actors">
-		Stars
+		Starring
 		{#if actors.length > 0}
 			<ul class="inline-list">
 				{#each actors as actor}
