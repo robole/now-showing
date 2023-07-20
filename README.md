@@ -1,5 +1,5 @@
 <h1 align="center">
-<img src="img/logo.png" alt="circular logo with reel of film in background with a purple tint and text 'Now Showing'" width="200" height="200">
+<img src="img/logo.png" alt="A circular logo with a reel of film in background with a purple tint and text 'Now Showing'" width="200" height="200">
 <br/>
 <br/>
 Now Showing
@@ -69,9 +69,7 @@ IMDB has an ["In Theaters"](https://www.imdb.com/movies-in-theaters/?ref_=nv_mv_
 
 ## Testing
 
-Unit tests are written with Jest and can be found in the *test/unit* folder. You can run `npm run test` on the command-line to run the tests.
-
-I spoke about how to set Jest up with a Svelte project in this article - [Testing a Svelte app with Jest](https://www.roboleary.net/2021/11/18/svelte-app-testing-jest.html).
+Unit tests are written with Vitest and can be found in the *test/unit* folder. You can run `npm run test` on the command-line to run the tests.
 
 ## Performance and quality review
 
