@@ -96,12 +96,12 @@
 		<span
 			class:excellent={formatRating(rating) >= 8 && ratingCount > 0}
 			class:good={formatRating(rating) < 8 &&
-				formatRating(rating) > 6.5 &&
+				formatRating(rating) >= 6.5 &&
 				ratingCount > 0}
 			class:ok={formatRating(rating) <= 6.5 &&
-				formatRating(rating) > 5.5 &&
+				formatRating(rating) >= 5.5 &&
 				ratingCount > 0}
-			class:bad={formatRating(rating) <= 5.5 && ratingCount > 0}
+			class:bad={formatRating(rating) < 5.5 && ratingCount > 0}
 			class:unrated={ratingCount === 0}>{formatRating(rating)}</span
 		>
 		<span>{formatRatingCount(ratingCount)} votes</span>
@@ -213,12 +213,12 @@
 	}
 
 	.ok {
-		background-color: hsl(36deg 36% 52%);
+		background-color: hsl(36, 36%, 52%);
 	}
 
 	.bad {
 		position: relative;
-		background-color: rgb(165 77 42);
+		background-color: hsl(36, 36%, 22%);
 		color: white;
 	}
 

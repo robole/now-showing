@@ -9,7 +9,7 @@ Now Showing
 <h4 align="center"><em>Preview movies showing in movie theaters in your country</em></h4>
 <br/>
 
-Browse the catalogue of movies that are showing in theaters to decide what movie you want to see. The data is provided by [TMDB](https://www.themoviedb.org/).
+Browse the catalogue of movies that are showing in movies theaters (cinemas) to decide what movie you want to see. The data is provided by [TMDB](https://www.themoviedb.org/).
 
 <img src="img/screenshots/screenshot.jpg" alt="screenshot of application">
 
@@ -17,12 +17,12 @@ Browse the catalogue of movies that are showing in theaters to decide what movie
 
 ## Features
 
-1. The most recent 20 movies in cinemas (movie theaters) are displayed as a list of cards.
+1. The most recent 20 movies in movie theaters are displayed as a list of cards.
 1. Each card shows the key info for each movie: title, tagline, rating, number of votes, release date, running time, age certification, genres, directed by, actors (3 leading actors), and description.
 1. Ratings are colour coded for quick identification, a rating that is:
 	- Greater than or equal 8 is coloured gold,
-	- Between 7.9 and 6.5 is coloured silver,
-	- Less than or equal to 6.5 and greater than 5.5 is coloured bronze,
+	- Less than 8 and greater than or equal to 6.5 is coloured silver,
+	- Less than 6.5 and greater than or equal to 5.5 is coloured bronze,
 	- Less than 5.5 is coloured dark brown.
 1. You can click a "Show More" button to show the next most recent 20 movies that were/are showing, if more are available.
 1. The list of movies can be sorted by rating, duration and release date. They are sorted by rating (descending order) by default.
@@ -35,13 +35,13 @@ Browse the catalogue of movies that are showing in theaters to decide what movie
 	- <kbd>Up arrow</kbd>: Increase volumne,
 	- <kbd>Down arrow</kbd>: Decrease volumne.
 	- <kbd>Esc</kbd>: Close video player.
-1. It has a button in the header that shows which country and language is currently selected. This is not clear from other websites, especially when you visit as a "guest". You can change the country and language, and the selections are stored in the browser (in [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)), so they are available the next time you visit the app. The default language is English, and the default country is Ireland.
+1. It has a button in the header that shows which country and language is currently selected. You can change the country and language, and the selections are stored in the browser (in [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)), so they are available the next time you visit the app. The default language is English, and the default country is Ireland.
 
 The data is sourced from the [TMDB API v3](https://developers.themoviedb.org/3/getting-started/introduction). This API has [no rate limiting](https://developers.themoviedb.org/3/getting-started/request-rate-limiting).
 
 ## Why?
 
-I made this because I wanted a better way to decide which movie I would like to see in the cinema (movie theater). I found that existing solutions fell short of my expectations.
+I made this because I wanted a better way to decide which movie I would like to see in a movie theater. I found that existing solutions fell short of my expectations.
 
 ### Existing solutions
 
