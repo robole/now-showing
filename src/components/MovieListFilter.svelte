@@ -141,7 +141,6 @@
 
 	select {
 		padding-inline-start: 0.4em;
-		padding-block-start: 0.4em;
 	}
 
 	input[type="number"] {
