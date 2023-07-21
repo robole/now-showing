@@ -71,17 +71,6 @@ IMDB has an ["In Theaters"](https://www.imdb.com/movies-in-theaters/?ref_=nv_mv_
 
 Unit tests are written with Vitest and can be found in the *test/unit* folder. You can run `npm run test` on the command-line to run the tests.
 
-## Performance and quality review
-
-The entire app is approximately 23KB gzipped (HTML, CSS, and JS). I guess this is a lot smaller than what other websites are shipping!
-
-I deployed the app to Netlify, and after running [Lighthouse](https://developers.google.com/web/tools/lighthouse/) a few times, these are the **median scores for mobile**:
-
-- Performance: 90
-- Accessibility: 100
-- Best Practices: 100
-- SEO: 100
-
 ## Deploy the project
 
 If you want to deploy this as a public website, keep in mind that **environment variables are used in the build process**. So, the TMDB API key could be found by someone who inspects the source code in the browser.
