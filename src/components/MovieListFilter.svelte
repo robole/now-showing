@@ -1,6 +1,7 @@
 <script>
 	import { latestMovies, sortByField } from "../store";
 	import { sortMoviesBy } from "../scripts/sort";
+	import { truncate } from "../scripts/format";
 
 	let filter = false;
 	let minRating = 0;
@@ -18,7 +19,9 @@
 
 	function filterMoviesByRating() {
 		return $latestMovies.map((movie) => {
-			if (movie.vote_average >= minRating && movie.vote_average <= maxRating) {
+			let rating = truncate(movie.vote_average);
+
+			if (rating >= minRating && rating <= maxRating) {
 				// eslint-disable-next-line no-param-reassign
 				movie.show = true;
 			} else {

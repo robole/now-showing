@@ -1,6 +1,7 @@
 <script>
 	import { selectedMovieTrailers, showVideoPlayer } from "../store";
 	import { fade } from "svelte/transition";
+	import { truncate } from "../scripts/format";
 
 	export let title;
 	export let overview;
@@ -29,7 +30,7 @@
 	}
 
 	function formatRating(num) {
-		return parseFloat(num).toFixed(1);
+		return truncate(num).toFixed(1);
 	}
 
 	function formatCertification(value) {
