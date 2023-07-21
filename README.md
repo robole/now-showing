@@ -65,7 +65,7 @@ IMDB has an ["In Theaters"](https://www.imdb.com/movies-in-theaters/?ref_=nv_mv_
 1. Clone this project.
 1. Create a new file called `.env` and add it to the project root folder. This is where we will store the API key. This follows [Vite's conventions for environment variables](https://vitejs.dev/guide/env-and-mode.html#env-files). Add the variable `VITE_API_KEY=123` replacing "123" with your actual API key.
 1. Go to the command-line, `cd` to to the project folder, and install the project dependencies with your package manager of choice e.g `npm install` for npm.
-1. Now, run the script command `npm run dev` and the app should be running at <http://localhost:3000/>.
+1. Now, you can start the local server -- `npm run dev`.
 
 ## Testing
 
