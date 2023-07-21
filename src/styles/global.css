@@ -4,6 +4,18 @@
   box-sizing: border-box;
 }
 
+@font-face {
+	font-family: "Bebas Neue";
+	src: url(fonts/BebasNeue-Regular.woff2) format("woff2");
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url(fonts/Inter-VariableFont_slnt,wght.woff2) format("woff2");
+	font-weight: 100 900;
+}
+
 :root {
   --max-width: 1600px;
   --header-height: 2.75rem;

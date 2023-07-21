@@ -1,6 +1,6 @@
 # Todo
 
-1. Change filter to be inline?
+1. Change filter dropdown to be inline.
 1. Add e2e test. What is the demarcation between unit and e2e?
 1. Add compact view?
 1. Add more fields to filter?
