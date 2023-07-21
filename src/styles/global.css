@@ -6,13 +6,13 @@
 
 @font-face {
 	font-family: "Bebas Neue";
-	src: url(fonts/BebasNeue-Regular.woff2) format("woff2");
+	src: url(/fonts/BebasNeue-Regular.woff2) format("woff2");
 	font-weight: 400;
 }
 
 @font-face {
 	font-family: "Inter";
-	src: url(fonts/Inter-VariableFont_slnt,wght.woff2) format("woff2");
+	src: url(/fonts/Inter-VariableFont_slnt,wght.woff2) format("woff2");
 	font-weight: 100 900;
 }
 
