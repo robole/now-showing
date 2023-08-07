@@ -9,7 +9,7 @@ Now Showing
 <h4 align="center"><em>Preview movies showing in movie theaters in your country</em></h4>
 <br/>
 
-Browse the catalogue of movies that are showing in movies theaters (cinemas) to decide what movie you want to see. The data is provided by [TMDB](https://www.themoviedb.org/).
+Browse the catalogue of movies that are showing in movies theaters (cinemas) to decide what movie (film) you want to see. The data is provided by [TMDB](https://www.themoviedb.org/).
 
 <img src="img/screenshots/screenshot.jpg" alt="screenshot of application">
 
