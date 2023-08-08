@@ -1,7 +1,7 @@
 # Todo
 
-1. Change filter dropdown to be inline.
-1. Add more fields to filter?
+1. Change filter dropdown to use custom disclosure widget.
+1. Add more fields to filter: release date,..?
 1. Add e2e test. What is the demarcation between unit and e2e?
 1. Add compact view?
 1. Get user country location from edge handler? <https://docs.netlify.com/edge-handlers/api-overview/#geolocation>

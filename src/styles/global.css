@@ -21,10 +21,14 @@
 :root {
   --max-width: 1600px;
   --header-height: 2.75rem;
+	--default-padding: 5px;
+
   --primary-color: hsl(300deg 100% 25%);
   --secondary-color: hsl(270deg 100% 25%);
   --tertiary-color: hsl(330deg 100% 25%);
-  --default-padding: 5px;
+
+	--body-font-family: Inter, Roboto, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	
   --zIndex5: 250;
   --zIndex4: 200;
   --zIndex3: 150;
@@ -40,7 +44,7 @@
 body {
   width: 100%;
   margin: 0;
-  font-family: Inter, Roboto, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--body-font-family);
 }
 
 .monospace {
@@ -87,6 +91,12 @@ button {
   box-shadow: rgb(0 0 0 / 20%) 0 1px 2px, rgb(0 0 0 / 10%) 1px 2px 2px;
   color: var(--secondary-color);
   cursor: pointer;
+}
+
+button[disabled]{
+	color: lightgray;
+	border: 1px solid lightgray;
+	cursor: initial;
 }
 
 input[type="range"] {
