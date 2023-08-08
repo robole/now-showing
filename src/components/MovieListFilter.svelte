@@ -96,10 +96,10 @@
 <section class="movieListFilter">
 	<label
 		>Sort:
-		<select name="sort" id="sort" bind:value={$sortByField} on:input={sort}>
-			<option value="vote_average">Rating</option>
-			<option value="runtime">Duration</option>
-			<option value="release_date">Release Date</option>
+		<select name="sort" id="sort" bind:value={$sortByField} on:change={sort}>
+			<option value="vote_average">Rating (highest to lowest)</option>
+			<option value="runtime">Duration (longest to shortest)</option>
+			<option value="release_date">Release Date (newest to oldest)</option>
 		</select>
 	</label>
 	<details class="filters">
