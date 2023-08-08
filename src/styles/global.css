@@ -53,6 +53,7 @@ body {
 
 label {
 	color: #818080;
+	align-self: center;
 }
 
 input,

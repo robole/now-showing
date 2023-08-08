@@ -1,6 +1,5 @@
 <script>
 	import { latestMovies, sortByField } from "../store";
-	import { sortMoviesBy } from "../scripts/sort";
 	import { truncate } from "../scripts/format";
 
 	let filter = false;
@@ -10,12 +9,6 @@
 	let maxDuration = 300;
 	let minVotes = 0;
 	let maxVotes = 1000000;
-
-	function sort() {
-		if ($latestMovies.length > 0) {
-			$latestMovies = sortMoviesBy($latestMovies, $sortByField);
-		}
-	}
 
 	function filterMovies() {
 		let filteredMovies;
@@ -93,15 +86,7 @@
 	}
 </script>
 
-<section class="movieListFilter">
-	<label
-		>Sort:
-		<select name="sort" id="sort" bind:value={$sortByField} on:change={sort}>
-			<option value="vote_average">Rating (highest to lowest)</option>
-			<option value="runtime">Duration (longest to shortest)</option>
-			<option value="release_date">Release Date (newest to oldest)</option>
-		</select>
-	</label>
+<div class="movieListFilter">
 	<details class="filters">
 		<summary>Filters</summary>
 		<div class="controls">
@@ -200,31 +185,16 @@
 			</div>
 		</div>
 	</details>
-</section>
+</div>
 
 <style>
-	label {
-		align-self: center;
-	}
-
-	select {
-		padding-inline-start: 0.4em;
-	}
-
 	input[type="number"] {
 		padding: 0.5em 0;
 		padding-inline-start: 0.3rem;
 	}
 
-	label:nth-child(1) {
-		display: block;
-		margin-block-end: 1rem;
-	}
-
 	.movieListFilter {
 		width: 100%;
-		max-width: var(--max-width);
-		padding: 0 var(--default-padding);
 
 		margin: 0.5rem auto;
 
@@ -274,7 +244,7 @@
 
 		padding: 1rem 0.75rem;
 		border: 1px solid hsl(0, 1%, 1%, 0.3);
-		box-shadow: 0 0 2px hsl(0, 1%, 1%, 0.2);
+
 		border-radius: 4px;
 	}
 
