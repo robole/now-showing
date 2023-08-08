@@ -93,7 +93,7 @@
 	}
 </script>
 
-<div class="movieListFilter">
+<section class="movieListFilter">
 	<label
 		>Sort:
 		<select name="sort" id="sort" bind:value={$sortByField} on:input={sort}>
@@ -200,12 +200,11 @@
 			</div>
 		</div>
 	</details>
-</div>
+</section>
 
 <style>
 	label {
 		align-self: center;
-		color: #818080;
 	}
 
 	select {
@@ -255,7 +254,7 @@
 		align-content: center;
 		align-items: start;
 		row-gap: 0.75rem;
-		column-gap: 0.5rem;
+		column-gap: 1.5rem;
 
 		width: 100%;
 		padding: 0.75rem 0.5rem;
@@ -273,9 +272,10 @@
 		row-gap: 1rem;
 		column-gap: 0.5rem;
 
-		padding: 1rem 0.5rem;
-		border: 1px solid lightgray;
-		border-radius: 5px;
+		padding: 1rem 0.75rem;
+		border: 1px solid hsl(0, 1%, 1%, 0.3);
+		box-shadow: 0 0 2px hsl(0, 1%, 1%, 0.2);
+		border-radius: 4px;
 	}
 
 	.filter h2 {
