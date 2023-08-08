@@ -85,7 +85,8 @@
 		list-style-type: none;
 	}
 
-	@media screen and (min-width: 800px) {
+	/* this prevent a 3rd card appearing in a row on desktop */
+	@media screen and (min-width: 860px) {
 		.movieList {
 			grid-template-columns: repeat(2, minmax(400px, 1fr));
 		}
