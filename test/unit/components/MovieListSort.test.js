@@ -6,7 +6,7 @@ import MovieListSort from "../../../src/components/MovieListSort.svelte";
 describe("MovieListSort", () => {
   test("should show a sort dropdown", () => {
     render(MovieListSort);
-    expect(screen.getByRole("combobox", { name: "Sort:" })).toBeInTheDocument();
+    expect(screen.getByRole("combobox", { name: "Sort" })).toBeInTheDocument();
     expect(
       screen.getByRole("option", { name: "Rating (highest first)" })
     ).toBeInTheDocument();

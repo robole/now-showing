@@ -1,6 +1,5 @@
 # Todo
 
-1. Fix *MovieListFilter.test.js*.
 1. Change popup dialogs to use new `dialog` element?
 1. Prevent scrolling when dialog is visible. There is a property for that.
 1. Add more fields to filter: release date,..?

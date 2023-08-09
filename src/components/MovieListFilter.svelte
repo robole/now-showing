@@ -109,7 +109,7 @@
 			on:click={() => (expanded = !expanded)}
 			title="Reveal filters"
 		>
-			<svg viewBox="0 0 24 24" aria-label="Reveal filter">
+			<svg viewBox="0 0 24 24" aria-label="Reveal filters">
 				<path
 					d="m6.7122 9.3082 5.2911 5.7121 5.2957-5.7456"
 					fill="none"

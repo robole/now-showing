@@ -13,8 +13,8 @@ describe("App", () => {
     });
     expect(button).toBeInTheDocument();
 
-    // MovieListFilter
-    expect(screen.getByRole("combobox", { name: "Sort:" })).toBeInTheDocument();
+    // MovieListSort
+    expect(screen.getByRole("combobox", { name: "Sort" })).toBeInTheDocument();
 
     // MovieList to show movies
     expect(screen.getByRole("list")).toBeInTheDocument();

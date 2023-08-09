@@ -5,23 +5,19 @@ import userEvent from "@testing-library/user-event";
 import MovieListFilter from "../../../src/components/MovieListFilter.svelte";
 
 describe("MovieListFilter", () => {
-  test("should show a filter form", () => {
+  test("should show a filter disclosure widget", () => {
     render(MovieListFilter);
     expect(screen.getByText("Filter")).toBeInTheDocument();
-    expect(screen.getByLabelText("Min rating:")).toBeInTheDocument();
-    expect(screen.getByLabelText("Max rating:")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Reset Filter" }));
+		expect(screen.getByRole("button", { name: "Reveal filters" }));
   });
 
-  test("should reset the filter form when the button is clicked", async () => {
+	test("should reveal filter fields when the 'Reveal filters' button is clicked", async () => {
     render(MovieListFilter);
 
-    const minRating = screen.getByLabelText("Min rating:");
-    await userEvent.type(minRating, "5");
-    expect(minRating).toHaveValue(5);
-    await userEvent.click(screen.getByText("Reset Filter"));
+    await userEvent.click(screen.getByRole("button", { name: "Reveal filters" }));
     setTimeout(() => {
-      expect(minRating).toHaveValue(0);
-    }, 50);
-  });
+      expect(screen.getByText("Rating")).toBeInTheDocument();
+			expect(screen.getByLabelText("Min")).toBeInTheDocument();
+    }, 500);
+	});
 });
