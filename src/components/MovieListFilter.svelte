@@ -227,7 +227,7 @@
 	}
 
 	.disclosure-button {
-		--size: 1.1rem;
+		--size: 1.25rem;
 		width: var(--size);
 		height: var(--size);
 
@@ -241,7 +241,7 @@
 		border: 1px solid var(--secondary-color);
 		border-radius: 50%;
 
-		margin: -0.1rem 0;
+		margin: -0.2rem 0;
 
 		transform: rotate(-90deg);
 		transition: 300ms ease-in;
@@ -256,6 +256,8 @@
 		grid-template-rows: 1fr;
 		padding: 0.1rem;
 		overflow: hidden;
+		border: 1px solid var(--secondary-color);
+		border-radius: 8px;
 
 		transition: all 600ms ease-out;
 	}
@@ -277,13 +279,17 @@
 
 		color: black;
 		font-size: 1rem;
-
-		box-shadow: var(--secondary-color) 0 0 0 2px, rgb(0 0 0 / 20%) 0 2px 4px;
 	}
 
 	.content[aria-hidden="true"] {
 		grid-template-rows: 0fr;
 		padding: 0;
+		border: 0px solid var(--secondary-color);
+	}
+
+	.buttonGroup {
+		margin: 0.75rem 0.5rem;
+		grid-column: 1 / -1;
 	}
 
 	.filter {
@@ -321,10 +327,5 @@
 	input[type="number"] {
 		padding: 0.5em 0;
 		padding-inline-start: 0.3rem;
-	}
-
-	.buttonGroup {
-		margin: 0.75rem 0.5rem;
-		grid-column: 1 / -1;
 	}
 </style>
