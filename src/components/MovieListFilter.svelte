@@ -359,7 +359,7 @@
 
 	h2,
 	h3 {
-		font-family: var(--body-font-family);
+		font-family: var(--sans-font-family);
 		padding: 0;
 		margin: 0;
 		font-size: 1.1rem;

@@ -27,7 +27,9 @@
   --secondary-color: hsl(270deg 100% 25%);
   --tertiary-color: hsl(330deg 100% 25%);
 
-	--body-font-family: Inter, Roboto, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	--sans-font-family: Inter, Roboto, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	--decorative-font-family: "Bebas Neue", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	--mono-font-family: "Fira Mono", "JetBrains Mono", monospace;
 	
   --zIndex5: 250;
   --zIndex4: 200;
@@ -44,11 +46,7 @@
 body {
   width: 100%;
   margin: 0;
-  font-family: var(--body-font-family);
-}
-
-.monospace {
-  font-family: "Fira Mono", "JetBrains Mono", monospace;
+  font-family: var(--sans-font-family);
 }
 
 label {
@@ -208,7 +206,7 @@ h5,
 h6 {
   padding: 0 var(--padding);
   margin: 0;
-  font-family: "Bebas Neue", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--decorative-font-family);
   font-weight: normal;
   text-transform: uppercase;
 }
