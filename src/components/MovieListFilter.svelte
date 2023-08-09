@@ -114,14 +114,12 @@
 				<button
 					class="btnApply"
 					type="button"
-					on:click|preventDefault={filterMovies}
-					disabled={!filter}>Apply Filters</button
+					on:click|preventDefault={filterMovies}>Apply Filters</button
 				>
 				<button
 					class="btnReset"
 					type="reset"
-					on:click|preventDefault={resetFilter}
-					disabled={!filter}>Reset Filters</button
+					on:click|preventDefault={resetFilter}>Reset Filters</button
 				>
 			</div>
 			<div class="filter">
@@ -255,7 +253,7 @@
 		display: grid;
 		grid-template-rows: 1fr;
 		padding: 0.1rem;
-		overflow: hidden;
+		overflow: initial;
 		border: 1px solid var(--secondary-color);
 		border-radius: 8px;
 
@@ -263,6 +261,7 @@
 	}
 
 	.content .inner {
+		position: relative;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 		align-content: center;
@@ -284,12 +283,39 @@
 	.content[aria-hidden="true"] {
 		grid-template-rows: 0fr;
 		padding: 0;
-		border: 0px solid var(--secondary-color);
+		overflow: hidden;
+
+		/* without this, the border is visible too */
+		border: 0px solid white;
+	}
+
+	.content[aria-hidden="true"] .buttonGroup {
+		position: initial;
 	}
 
 	.buttonGroup {
-		margin: 0.75rem 0.5rem;
+		--margin: 0.5rem;
+
+		position: sticky;
+		top: calc(var(--header-height));
 		grid-column: 1 / -1;
+
+		width: calc(100% - 1rem);
+		background-color: white;
+
+		margin: 0.75rem var(--margin);
+		padding: 0.5rem 0.25rem;
+		border: 1px dotted var(--primary-color);
+		border-radius: 8px;
+
+		box-shadow: rgba(0 0 0 / 10%) 0 2px 2px;
+	}
+
+	@media screen and (min-width: 600px) {
+		.buttonGroup {
+			position: unset;
+			top: unset;
+		}
 	}
 
 	.filter {
