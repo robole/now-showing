@@ -268,7 +268,7 @@
 	.content {
 		display: grid;
 		grid-template-rows: 1fr;
-		padding: 0.1rem;
+		padding: 0.2rem 0.1rem;
 		overflow: initial;
 		border: 1px solid var(--secondary-color);
 		border-radius: 8px;
@@ -310,8 +310,6 @@
 	}
 
 	.buttonGroup {
-		--margin: 0.5rem;
-
 		position: sticky;
 		top: calc(var(--header-height));
 		grid-column: 1 / -1;
@@ -319,8 +317,10 @@
 		width: calc(100% - 1rem);
 		background-color: white;
 
-		margin: 0.75rem var(--margin);
+		margin-inline: 0.5rem;
+		margin-block-end: 1rem;
 		padding: 0.5rem 0.25rem;
+
 		border: 1px dotted var(--primary-color);
 		border-radius: 8px;
 
@@ -345,14 +345,19 @@
 		row-gap: 1rem;
 		column-gap: 0.5rem;
 
-		padding: 1rem 0.75rem;
+		padding-inline: 1rem;
 		margin-inline: 0.5rem;
+		margin-block-end: 1rem;
 
 		border-radius: 4px;
 	}
 
 	.filter:last-child {
 		margin-block-end: 0.5rem;
+	}
+
+	.filter h3 {
+		grid-column: span 2;
 	}
 
 	h2,
@@ -362,8 +367,6 @@
 		margin: 0;
 		font-size: 1.1rem;
 		text-transform: none;
-
-		grid-column: span 2;
 	}
 
 	h2 {
@@ -380,7 +383,7 @@
 	}
 
 	input[type="number"] {
-		padding: 0.5em 0;
+		padding: 0.1em 0;
 		padding-inline-start: 0.3rem;
 	}
 
