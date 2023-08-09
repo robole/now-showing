@@ -11,7 +11,7 @@
 	const MIN_DURATION = 0;
 	const MAX_DURATION = 300;
 	const MIN_VOTES = 0;
-	const MAX_VOTES = 1000000;
+	const MAX_VOTES = 99999999; /* 99.99 million */
 
 	let minRating = MIN_RATING;
 	let maxRating = MAX_RATING;
@@ -139,7 +139,7 @@
 					on:click|preventDefault={resetFilters}>Reset Filters</button
 				>
 			</div>
-			<div class="filter">
+			<form class="filter">
 				<h3>Rating</h3>
 				<label for="minRating">Min:</label>
 				<input
@@ -165,7 +165,7 @@
 					size="3"
 					required
 				/>
-			</div>
+			</form>
 			<div class="filter">
 				<h3>Votes</h3>
 				<label for="minVotes">Min:</label>
@@ -176,7 +176,7 @@
 					bind:value={minVotes}
 					on:input={() => (dirty = true)}
 					min="0"
-					size="6"
+					size="8"
 					required
 				/>
 				<label for="maxDuration">Max:</label>
@@ -187,7 +187,7 @@
 					bind:value={maxVotes}
 					on:input={() => (dirty = true)}
 					min="0"
-					size="6"
+					size="8"
 					required
 				/>
 			</div>

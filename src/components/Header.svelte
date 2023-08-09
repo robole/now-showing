@@ -41,8 +41,8 @@
 		padding-block: 0.25rem;
 		background-color: white;
 		border-block-end: 1px solid rgba(0 0 0 / 14%);
-		box-shadow: rgb(0 0 0 / 8%) 0 0 4px, rgb(0 0 0 / 4%) 0 0 6px,
-			rgb(0 0 0 / 2%) 0 0 8px;
+		box-shadow: rgb(0 0 0 / 8%) 0 0 4px, rgb(0 0 0 / 4%) 0 0 8px,
+			rgb(0 0 0 / 2%) 0 0 12px;
 		font-size: 1.1rem;
 	}
 
