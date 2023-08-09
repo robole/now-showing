@@ -258,7 +258,7 @@
 		margin: -0.25rem 0;
 
 		transform: rotate(-90deg);
-		transition: 300ms ease-in;
+		transition: transform 100ms ease-in;
 	}
 
 	[aria-expanded="true"] svg {
@@ -266,14 +266,14 @@
 	}
 
 	.content {
-		display: grid;
-		grid-template-rows: 1fr;
 		padding: 0.2rem 0.1rem;
-		overflow: initial;
 		border: 1px solid var(--secondary-color);
 		border-radius: 8px;
 
-		transition: all 300ms ease-in-out;
+		/* display: grid;
+		grid-template-rows: 1fr;
+		overflow: initial;
+		transition: all 500ms ease-in-out; */
 	}
 
 	.content .inner {
@@ -297,12 +297,14 @@
 	}
 
 	.content[aria-hidden="true"] {
+		display: none;
+
+		/*
 		grid-template-rows: 0fr;
 		padding: 0;
 		overflow: hidden;
-
-		/* without this, the border is visible too */
 		border: 0px solid white;
+		 */
 	}
 
 	.content[aria-hidden="true"] .buttonGroup {
