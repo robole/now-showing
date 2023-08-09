@@ -3,18 +3,28 @@
 	import { truncate } from "../scripts/format";
 
 	let expanded = false;
+	let dirty = false;
 	let filter = false;
-	let minRating = 0;
-	let maxRating = 10;
-	let minDuration = 0;
-	let maxDuration = 300;
-	let minVotes = 0;
-	let maxVotes = 1000000;
 
-	function filterMovies() {
+	const MIN_RATING = 0;
+	const MAX_RATING = 10;
+	const MIN_DURATION = 0;
+	const MAX_DURATION = 300;
+	const MIN_VOTES = 0;
+	const MAX_VOTES = 1000000;
+
+	let minRating = MIN_RATING;
+	let maxRating = MAX_RATING;
+	let minDuration = MIN_DURATION;
+	let maxDuration = MAX_DURATION;
+	let minVotes = MIN_VOTES;
+	let maxVotes = MAX_VOTES;
+
+	function applyFilters() {
 		let filteredMovies;
 
-		if (filter) {
+		if (dirty) {
+			filter = true;
 			filteredMovies = $latestMovies.map((movie) => {
 				if (
 					filterByRating(movie) ||
@@ -66,15 +76,17 @@
 		return filtered;
 	}
 
-	function resetFilter() {
-		if (filter) {
-			minRating = 0;
-			maxRating = 10;
-			minDuration = 0;
-			maxDuration = 300;
-			minVotes = 0;
-			maxVotes = 1000000;
+	function resetFilters() {
+		dirty = false;
 
+		minRating = MIN_RATING;
+		maxRating = MAX_RATING;
+		minDuration = MIN_DURATION;
+		maxDuration = MAX_DURATION;
+		minVotes = MIN_VOTES;
+		maxVotes = MAX_VOTES;
+
+		if (filter) {
 			let resetMovies = $latestMovies.map((movie) => {
 				movie.show = true;
 				return movie;
@@ -89,15 +101,15 @@
 
 <div class="movieListFilter">
 	<header>
-		<h2>Filter</h2>
+		<h2 class:filter-on={filter}>Filter</h2>
 		<button
 			class="disclosure-button"
 			aria-expanded={expanded}
 			aria-controls="content"
 			on:click={() => (expanded = !expanded)}
-			title="Reveal contents"
+			title="Reveal filters"
 		>
-			<svg viewBox="0 0 24 24" aria-label="Reveal contents">
+			<svg viewBox="0 0 24 24" aria-label="Reveal filter">
 				<path
 					d="m6.7122 9.3082 5.2911 5.7121 5.2957-5.7456"
 					fill="none"
@@ -111,15 +123,20 @@
 		<!-- .inner div is req for disclosure behaviour -->
 		<div class="inner">
 			<div class="buttonGroup">
+				<h3>
+					Filters are <span class:hide={!filter}>on</span><span
+						class:hide={filter}>off<span /></span
+					>
+				</h3>
 				<button
 					class="btnApply"
 					type="button"
-					on:click|preventDefault={filterMovies}>Apply Filters</button
+					on:click|preventDefault={applyFilters}>Apply Filters</button
 				>
 				<button
 					class="btnReset"
 					type="reset"
-					on:click|preventDefault={resetFilter}>Reset Filters</button
+					on:click|preventDefault={resetFilters}>Reset Filters</button
 				>
 			</div>
 			<div class="filter">
@@ -130,7 +147,7 @@
 					name="minRating"
 					id="minRating"
 					bind:value={minRating}
-					on:input={() => (filter = true)}
+					on:input={() => (dirty = true)}
 					min="0"
 					max="10"
 					size="3"
@@ -142,7 +159,7 @@
 					name="maxRating"
 					id="maxRating"
 					bind:value={maxRating}
-					on:input={() => (filter = true)}
+					on:input={() => (dirty = true)}
 					min="0"
 					max="10"
 					size="3"
@@ -157,7 +174,7 @@
 					name="minVotes"
 					id="minVotes"
 					bind:value={minVotes}
-					on:input={() => (filter = true)}
+					on:input={() => (dirty = true)}
 					min="0"
 					size="6"
 					required
@@ -168,7 +185,7 @@
 					name="maxVotes"
 					id="maxVotes"
 					bind:value={maxVotes}
-					on:input={() => (filter = true)}
+					on:input={() => (dirty = true)}
 					min="0"
 					size="6"
 					required
@@ -182,7 +199,7 @@
 					name="minDuration"
 					id="minDuration"
 					bind:value={minDuration}
-					on:input={() => (filter = true)}
+					on:input={() => (dirty = true)}
 					min="0"
 					max="360"
 					size="3"
@@ -194,7 +211,7 @@
 					name="maxDuration"
 					id="maxDuration"
 					bind:value={maxDuration}
-					on:input={() => (filter = true)}
+					on:input={() => (dirty = true)}
 					min="0"
 					max="360"
 					size="3"
@@ -239,7 +256,7 @@
 		border: 1px solid var(--secondary-color);
 		border-radius: 50%;
 
-		margin: -0.2rem 0;
+		margin: -0.25rem 0;
 
 		transform: rotate(-90deg);
 		transition: 300ms ease-in;
@@ -257,7 +274,7 @@
 		border: 1px solid var(--secondary-color);
 		border-radius: 8px;
 
-		transition: all 600ms ease-out;
+		transition: all 300ms ease-in-out;
 	}
 
 	.content .inner {
@@ -311,6 +328,11 @@
 		box-shadow: rgba(0 0 0 / 10%) 0 2px 2px;
 	}
 
+	.buttonGroup h3 {
+		display: inline;
+		margin-inline: 0.25rem;
+	}
+
 	@media screen and (min-width: 600px) {
 		.buttonGroup {
 			position: unset;
@@ -350,8 +372,24 @@
 		display: inline-block;
 	}
 
+	h2.filter-on {
+		font-weight: bold;
+	}
+
+	h3 span {
+		font-weight: bold;
+	}
+
+	.hide {
+		display: none;
+	}
+
 	input[type="number"] {
 		padding: 0.5em 0;
 		padding-inline-start: 0.3rem;
+	}
+
+	label {
+		align-self: center;
 	}
 </style>
