@@ -124,19 +124,18 @@
 		<div class="inner">
 			<div class="buttonGroup">
 				<h3>
-					Filters are <span class:hide={!filter}>on</span><span
-						class:hide={filter}>off<span /></span
-					>
+					Filters are <span class:hide={!filter} class="filter-on">on</span
+					><span class:hide={filter}>off<span /></span>
 				</h3>
 				<button
 					class="btnApply"
 					type="button"
-					on:click|preventDefault={applyFilters}>Apply Filters</button
+					on:click|preventDefault={applyFilters}>Apply</button
 				>
 				<button
 					class="btnReset"
 					type="reset"
-					on:click|preventDefault={resetFilters}>Reset Filters</button
+					on:click|preventDefault={resetFilters}>Reset</button
 				>
 			</div>
 			<form class="filter">
@@ -348,7 +347,6 @@
 
 		padding: 1rem 0.75rem;
 		margin-inline: 0.5rem;
-		border: 1px solid hsl(0, 1%, 1%, 0.3);
 
 		border-radius: 4px;
 	}
@@ -372,12 +370,9 @@
 		display: inline-block;
 	}
 
-	h2.filter-on {
+	.filter-on {
 		font-weight: bold;
-	}
-
-	h3 span {
-		font-weight: bold;
+		transition: font-weight 300ms ease-in-out;
 	}
 
 	.hide {
