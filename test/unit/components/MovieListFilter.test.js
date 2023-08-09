@@ -5,18 +5,6 @@ import userEvent from "@testing-library/user-event";
 import MovieListFilter from "../../../src/components/MovieListFilter.svelte";
 
 describe("MovieListFilter", () => {
-  test("should show a sort dropdown", () => {
-    render(MovieListFilter);
-    expect(screen.getByRole("combobox", { name: "Sort:" })).toBeInTheDocument();
-    expect(screen.getByRole("option", { name: "Rating" })).toBeInTheDocument();
-    expect(
-      screen.getByRole("option", { name: "Duration" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("option", { name: "Release Date" })
-    ).toBeInTheDocument();
-  });
-
   test("should show a filter form", () => {
     render(MovieListFilter);
     expect(screen.getByText("Filter")).toBeInTheDocument();

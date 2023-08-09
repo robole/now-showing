@@ -10,22 +10,25 @@
 </script>
 
 <label
-	>Sort:
+	>Sort
 	<select name="sort" id="sort" bind:value={$sortByField} on:change={sort}>
-		<option value="vote_average">Rating (highest to lowest)</option>
-		<option value="runtime">Duration (longest to shortest)</option>
-		<option value="release_date">Release Date (newest to oldest)</option>
+		<option value="vote_average">Rating (highest first)</option>
+		<option value="runtime">Duration (longest first)</option>
+		<option value="release_date">Release Date (newest first)</option>
 	</select>
 </label>
 
 <style>
 	label {
 		display: inline-block;
-		margin-block-end: 0.5rem;
+		margin-block-end: 1.3rem;
+		font-size: 1.1rem;
+		color: black;
 	}
 
 	select {
-		margin-inline-start: 0.5rem;
+		margin-inline-start: 0.25rem;
 		padding-inline-start: 0.3rem;
+		color: var(--secondary-color);
 	}
 </style>

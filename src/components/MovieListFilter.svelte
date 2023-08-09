@@ -1,7 +1,8 @@
 <script>
-	import { latestMovies, sortByField } from "../store";
+	import { latestMovies } from "../store";
 	import { truncate } from "../scripts/format";
 
+	let expanded = false;
 	let filter = false;
 	let minRating = 0;
 	let maxRating = 10;
@@ -87,11 +88,44 @@
 </script>
 
 <div class="movieListFilter">
-	<details class="filters">
-		<summary>Filters</summary>
-		<div class="controls">
+	<header>
+		<h2>Filter</h2>
+		<button
+			class="disclosure-button"
+			aria-expanded={expanded}
+			aria-controls="content"
+			on:click={() => (expanded = !expanded)}
+			title="Reveal contents"
+		>
+			<svg viewBox="0 0 24 24" aria-label="Reveal contents">
+				<path
+					d="m6.7122 9.3082 5.2911 5.7121 5.2957-5.7456"
+					fill="none"
+					stroke="var(--secondary-color)"
+					stroke-width="2"
+				/>
+			</svg>
+		</button>
+	</header>
+	<div class="content" aria-hidden={!expanded}>
+		<!-- .inner div is req for disclosure behaviour -->
+		<div class="inner">
+			<div class="buttonGroup">
+				<button
+					class="btnApply"
+					type="button"
+					on:click|preventDefault={filterMovies}
+					disabled={!filter}>Apply Filters</button
+				>
+				<button
+					class="btnReset"
+					type="reset"
+					on:click|preventDefault={resetFilter}
+					disabled={!filter}>Reset Filters</button
+				>
+			</div>
 			<div class="filter">
-				<h2>Rating</h2>
+				<h3>Rating</h3>
 				<label for="minRating">Min:</label>
 				<input
 					type="number"
@@ -118,7 +152,7 @@
 				/>
 			</div>
 			<div class="filter">
-				<h2>Votes</h2>
+				<h3>Votes</h3>
 				<label for="minVotes">Min:</label>
 				<input
 					type="number"
@@ -143,7 +177,7 @@
 				/>
 			</div>
 			<div class="filter">
-				<h2>Duration (minutes)</h2>
+				<h3>Duration (minutes)</h3>
 				<label for="minDuration">Min:</label>
 				<input
 					type="number"
@@ -169,56 +203,64 @@
 					required
 				/>
 			</div>
-			<div class="buttonGroup">
-				<button
-					class="btnApply"
-					type="button"
-					on:click|preventDefault={filterMovies}
-					disabled={!filter}>Apply Filters</button
-				>
-				<button
-					class="btnReset"
-					type="reset"
-					on:click|preventDefault={resetFilter}
-					disabled={!filter}>Reset Filters</button
-				>
-			</div>
 		</div>
-	</details>
+	</div>
 </div>
 
 <style>
-	input[type="number"] {
-		padding: 0.5em 0;
-		padding-inline-start: 0.3rem;
-	}
-
 	.movieListFilter {
 		width: 100%;
 
-		margin: 0.5rem auto;
+		margin: 0 auto;
+		margin-block-end: 1rem;
 
 		font-size: 1.1rem;
 	}
 
-	.filters {
+	header {
 		padding: 0.25rem 2px;
+		margin-block-end: 0.5rem;
 		border-radius: 5px;
 
 		grid-row: 2;
 		grid-column: 1 / -1;
 	}
 
-	.filters summary {
-		cursor: pointer;
+	.disclosure-button {
+		--size: 1.1rem;
+		width: var(--size);
+		height: var(--size);
+
+		border: none;
+		padding: 0;
+		box-shadow: none;
 	}
 
-	.filters[open] {
-		background-color: var(--primary-color);
-		color: white;
+	.disclosure-button svg {
+		height: inherit;
+		border: 1px solid var(--secondary-color);
+		border-radius: 50%;
+
+		margin: -0.1rem 0;
+
+		transform: rotate(-90deg);
+		transition: 300ms ease-in;
 	}
 
-	.filters .controls {
+	[aria-expanded="true"] svg {
+		transform: rotate(0);
+	}
+
+	.content {
+		display: grid;
+		grid-template-rows: 1fr;
+		padding: 0.1rem;
+		overflow: hidden;
+
+		transition: all 600ms ease-out;
+	}
+
+	.content .inner {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 		align-content: center;
@@ -227,13 +269,21 @@
 		column-gap: 1.5rem;
 
 		width: 100%;
-		padding: 0.75rem 0.5rem;
+		padding: inherit;
+		min-height: 0;
 
 		background-color: white;
 		border-radius: 5px;
-		box-shadow: rgb(0 0 0 / 40%) 0 0 2px, rgb(0 0 0 / 20%) 0 2px 4px;
+
 		color: black;
 		font-size: 1rem;
+
+		box-shadow: var(--secondary-color) 0 0 0 2px, rgb(0 0 0 / 20%) 0 2px 4px;
+	}
+
+	.content[aria-hidden="true"] {
+		grid-template-rows: 0fr;
+		padding: 0;
 	}
 
 	.filter {
@@ -243,12 +293,18 @@
 		column-gap: 0.5rem;
 
 		padding: 1rem 0.75rem;
+		margin-inline: 0.5rem;
 		border: 1px solid hsl(0, 1%, 1%, 0.3);
 
 		border-radius: 4px;
 	}
 
-	.filter h2 {
+	.filter:last-child {
+		margin-block-end: 0.5rem;
+	}
+
+	h2,
+	h3 {
 		font-family: var(--body-font-family);
 		padding: 0;
 		margin: 0;
@@ -258,7 +314,17 @@
 		grid-column: span 2;
 	}
 
+	h2 {
+		display: inline-block;
+	}
+
+	input[type="number"] {
+		padding: 0.5em 0;
+		padding-inline-start: 0.3rem;
+	}
+
 	.buttonGroup {
+		margin: 0.75rem 0.5rem;
 		grid-column: 1 / -1;
 	}
 </style>

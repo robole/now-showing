@@ -77,7 +77,8 @@
 		width: 100%;
 		padding: 0;
 
-		margin: 1rem auto;
+		margin: 0 auto;
+		margin-block-end: 1rem;
 		gap: 0.75rem;
 		grid-auto-flow: dense;
 		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
