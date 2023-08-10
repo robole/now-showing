@@ -21,7 +21,7 @@
 <style>
 	label {
 		display: inline-block;
-		margin-block-end: 1.3rem;
+		padding-block-end: 1rem;
 		font-size: 1.1rem;
 		color: black;
 	}

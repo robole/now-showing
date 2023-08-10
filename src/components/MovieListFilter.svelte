@@ -120,103 +120,101 @@
 		</button>
 	</header>
 	<div class="content" aria-hidden={!expanded}>
-		<!-- .inner div is req for disclosure behaviour -->
-		<div class="inner">
-			<div class="buttonGroup">
-				<h3>
-					Filters are <span class:hide={!filter} class="filter-on">on</span
-					><span class:hide={filter}>off<span /></span>
-				</h3>
-				<button
-					class="btnApply"
-					type="button"
-					on:click|preventDefault={applyFilters}>Apply</button
+		<div class="buttonGroup">
+			<h3>
+				Filters are <span class:hide={!filter} class="filter-on">on</span><span
+					class:hide={filter}>off<span /></span
 				>
-				<button
-					class="btnReset"
-					type="reset"
-					on:click|preventDefault={resetFilters}>Reset</button
-				>
-			</div>
-			<form class="filter">
-				<h3>Rating</h3>
-				<label for="minRating">Min:</label>
-				<input
-					type="number"
-					name="minRating"
-					id="minRating"
-					bind:value={minRating}
-					on:input={() => (dirty = true)}
-					min="0"
-					max="10"
-					size="3"
-					required
-				/>
-				<label for="maxRating">Max:</label>
-				<input
-					type="number"
-					name="maxRating"
-					id="maxRating"
-					bind:value={maxRating}
-					on:input={() => (dirty = true)}
-					min="0"
-					max="10"
-					size="3"
-					required
-				/>
-			</form>
-			<div class="filter">
-				<h3>Votes</h3>
-				<label for="minVotes">Min:</label>
-				<input
-					type="number"
-					name="minVotes"
-					id="minVotes"
-					bind:value={minVotes}
-					on:input={() => (dirty = true)}
-					min="0"
-					size="8"
-					required
-				/>
-				<label for="maxDuration">Max:</label>
-				<input
-					type="number"
-					name="maxVotes"
-					id="maxVotes"
-					bind:value={maxVotes}
-					on:input={() => (dirty = true)}
-					min="0"
-					size="8"
-					required
-				/>
-			</div>
-			<div class="filter">
-				<h3>Duration (minutes)</h3>
-				<label for="minDuration">Min:</label>
-				<input
-					type="number"
-					name="minDuration"
-					id="minDuration"
-					bind:value={minDuration}
-					on:input={() => (dirty = true)}
-					min="0"
-					max="360"
-					size="3"
-					required
-				/>
-				<label for="maxDuration">Max:</label>
-				<input
-					type="number"
-					name="maxDuration"
-					id="maxDuration"
-					bind:value={maxDuration}
-					on:input={() => (dirty = true)}
-					min="0"
-					max="360"
-					size="3"
-					required
-				/>
-			</div>
+			</h3>
+			<button
+				class="btnApply"
+				type="button"
+				on:click|preventDefault={applyFilters}>Apply</button
+			>
+			<button
+				class="btnReset"
+				type="reset"
+				on:click|preventDefault={resetFilters}>Reset</button
+			>
+		</div>
+		<form class="filter">
+			<h3>Rating</h3>
+			<label for="minRating">Min:</label>
+			<input
+				type="number"
+				name="minRating"
+				id="minRating"
+				bind:value={minRating}
+				on:input={() => (dirty = true)}
+				min="0"
+				max="10"
+				size="3"
+				required
+			/>
+			<label for="maxRating">Max:</label>
+			<input
+				type="number"
+				name="maxRating"
+				id="maxRating"
+				bind:value={maxRating}
+				on:input={() => (dirty = true)}
+				min="0"
+				max="10"
+				size="3"
+				required
+			/>
+		</form>
+		<div class="filter">
+			<h3>Votes</h3>
+			<label for="minVotes">Min:</label>
+			<input
+				type="number"
+				name="minVotes"
+				id="minVotes"
+				bind:value={minVotes}
+				on:input={() => (dirty = true)}
+				min="0"
+				size="8"
+				required
+			/>
+			<label for="maxDuration">Max:</label>
+			<input
+				type="number"
+				name="maxVotes"
+				id="maxVotes"
+				bind:value={maxVotes}
+				on:input={() => (dirty = true)}
+				min="0"
+				size="8"
+				required
+			/>
+		</div>
+		<div class="filter">
+			<h3>Duration (minutes)</h3>
+			<label for="minDuration">Min:</label>
+			<input
+				type="number"
+				name="minDuration"
+				id="minDuration"
+				bind:value={minDuration}
+				on:input={() => (dirty = true)}
+				min="0"
+				max="360"
+				size="3"
+				required
+			/>
+			<label for="maxDuration">Max:</label>
+			<input
+				type="number"
+				name="maxDuration"
+				id="maxDuration"
+				bind:value={maxDuration}
+				on:input={() => (dirty = true)}
+				min="0"
+				max="360"
+				size="3"
+				required
+			/>
 		</div>
 	</div>
 </div>
@@ -226,27 +224,28 @@
 		width: 100%;
 
 		margin: 0 auto;
-		margin-block-end: 1rem;
+		margin-block-end: 0.75rem;
 
 		font-size: 1.1rem;
 	}
 
 	header {
+		display: flex;
 		padding: 0.25rem 2px;
-		margin-block-end: 0.5rem;
 		border-radius: 5px;
+		align-items: center;
 
 		grid-row: 2;
 		grid-column: 1 / -1;
 	}
 
 	.disclosure-button {
-		--size: 1.25rem;
+		--size: 1.5rem;
 		width: var(--size);
 		height: var(--size);
 
 		border: none;
-		padding: 0;
+		padding: 1.5rem;
 		box-shadow: none;
 	}
 
@@ -255,28 +254,15 @@
 		border: 1px solid var(--secondary-color);
 		border-radius: 50%;
 
-		margin: -0.25rem 0;
-
-		transform: rotate(-90deg);
+		transform: translate(-50%, -50%) rotate(-90deg);
 		transition: transform 100ms ease-in;
 	}
 
 	[aria-expanded="true"] svg {
-		transform: rotate(0);
+		transform: translate(-50%, -50%) rotate(0);
 	}
 
 	.content {
-		padding: 0.2rem 0.1rem;
-		border: 1px solid var(--secondary-color);
-		border-radius: 8px;
-
-		/* display: grid;
-		grid-template-rows: 1fr;
-		overflow: initial;
-		transition: all 500ms ease-in-out; */
-	}
-
-	.content .inner {
 		position: relative;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -285,8 +271,11 @@
 		row-gap: 0.75rem;
 		column-gap: 1.5rem;
 
+		padding: 0.4rem 0.1rem;
+		border: 1px solid var(--primary-color);
+		border-radius: 8px;
+
 		width: 100%;
-		padding: inherit;
 		min-height: 0;
 
 		background-color: white;
@@ -296,19 +285,23 @@
 		font-size: 1rem;
 	}
 
-	.content[aria-hidden="true"] {
-		display: none;
+	.content::before {
+		content: "";
 
-		/*
-		grid-template-rows: 0fr;
-		padding: 0;
-		overflow: hidden;
-		border: 0px solid white;
-		 */
+		--height: 1.1rem;
+		position: absolute;
+		top: calc(var(--height) * -1);
+		left: 3.4rem;
+
+		width: 1.5rem;
+		height: var(--height);
+
+		background-color: var(--secondary-color);
+		clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 	}
 
-	.content[aria-hidden="true"] .buttonGroup {
-		position: initial;
+	.content[aria-hidden="true"] {
+		display: none;
 	}
 
 	.buttonGroup {
