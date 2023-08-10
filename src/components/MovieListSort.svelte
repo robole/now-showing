@@ -23,6 +23,7 @@
 		display: inline-block;
 		padding-block-end: 1rem;
 		font-size: 1.1rem;
+		font-weight: 300;
 		color: black;
 	}
 

@@ -362,6 +362,7 @@
 		margin: 0;
 		font-size: 1.1rem;
 		text-transform: none;
+		font-weight: 300;
 	}
 
 	h2 {
@@ -369,7 +370,7 @@
 	}
 
 	.filter-on {
-		font-weight: bold;
+		font-weight: 500;
 		transition: font-weight 300ms ease-in-out;
 	}
 
@@ -383,6 +384,7 @@
 	}
 
 	label {
+		font-weight: 200;
 		align-self: center;
 	}
 </style>
