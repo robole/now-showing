@@ -21,15 +21,16 @@
 <style>
 	label {
 		display: inline-block;
-		padding-block-end: 1rem;
-		font-size: 1.1rem;
+		padding-block-end: 1em;
+
 		font-weight: 300;
 		color: black;
 	}
 
 	select {
-		margin-inline-start: 0.25rem;
-		padding-inline-start: 0.3rem;
+		margin-inline-start: 0.25em;
+		padding-inline-start: 0.3em;
 		color: var(--secondary-color);
+		font-size: 0.9em;
 	}
 </style>

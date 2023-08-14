@@ -3,6 +3,7 @@
 ## Improvements
 
 1. Add more fields to filter: release date.
+1. Add loading state to video player.
 1. Change popup dialogs to use new `dialog` element?
 1. Prevent scrolling when dialog is visible. There is a property for that.
 1. Add icon for when filter is applied? Currently heading is formatted as bold when it filters are on.

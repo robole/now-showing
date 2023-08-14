@@ -99,167 +99,148 @@
 	}
 </script>
 
-<div class="movieListFilter">
-	<header>
-		<h2 class:filter-on={filter}>Filter</h2>
+<button
+	class="disclosure-button"
+	aria-expanded={expanded}
+	aria-controls="content"
+	on:click={() => (expanded = !expanded)}
+	title="Reveal filters"
+>
+	<span class:filter-on={filter}>Filter</span>
+	<svg viewBox="0 0 24 24" aria-label="Reveal filters">
+		<path
+			d="m6.7122 9.3082 5.2911 5.7121 5.2957-5.7456"
+			fill="none"
+			stroke="var(--secondary-color)"
+			stroke-width="2"
+		/>
+	</svg>
+</button>
+<div class="content" aria-hidden={!expanded}>
+	<div class="buttonGroup">
+		<h3>
+			Filters are <span class:hide={!filter} class="filter-on">on</span><span
+				class:hide={filter}>off<span /></span
+			>
+		</h3>
 		<button
-			class="disclosure-button"
-			aria-expanded={expanded}
-			aria-controls="content"
-			on:click={() => (expanded = !expanded)}
-			title="Reveal filters"
+			class="btnApply"
+			type="button"
+			on:click|preventDefault={applyFilters}>Apply</button
 		>
-			<svg viewBox="0 0 24 24" aria-label="Reveal filters">
-				<path
-					d="m6.7122 9.3082 5.2911 5.7121 5.2957-5.7456"
-					fill="none"
-					stroke="var(--secondary-color)"
-					stroke-width="2"
-				/>
-			</svg>
-		</button>
-	</header>
-	<div class="content" aria-hidden={!expanded}>
-		<div class="buttonGroup">
-			<h3>
-				Filters are <span class:hide={!filter} class="filter-on">on</span><span
-					class:hide={filter}>off<span /></span
-				>
-			</h3>
-			<button
-				class="btnApply"
-				type="button"
-				on:click|preventDefault={applyFilters}>Apply</button
-			>
-			<button
-				class="btnReset"
-				type="reset"
-				on:click|preventDefault={resetFilters}>Reset</button
-			>
-		</div>
-		<form class="filter">
-			<h3>Rating</h3>
-			<label for="minRating">Min:</label>
-			<input
-				type="number"
-				name="minRating"
-				id="minRating"
-				bind:value={minRating}
-				on:input={() => (dirty = true)}
-				min="0"
-				max="10"
-				size="3"
-				required
-			/>
-			<label for="maxRating">Max:</label>
-			<input
-				type="number"
-				name="maxRating"
-				id="maxRating"
-				bind:value={maxRating}
-				on:input={() => (dirty = true)}
-				min="0"
-				max="10"
-				size="3"
-				required
-			/>
-		</form>
-		<div class="filter">
-			<h3>Votes</h3>
-			<label for="minVotes">Min:</label>
-			<input
-				type="number"
-				name="minVotes"
-				id="minVotes"
-				bind:value={minVotes}
-				on:input={() => (dirty = true)}
-				min="0"
-				size="8"
-				required
-			/>
-			<label for="maxDuration">Max:</label>
-			<input
-				type="number"
-				name="maxVotes"
-				id="maxVotes"
-				bind:value={maxVotes}
-				on:input={() => (dirty = true)}
-				min="0"
-				size="8"
-				required
-			/>
-		</div>
-		<div class="filter">
-			<h3>Duration (minutes)</h3>
-			<label for="minDuration">Min:</label>
-			<input
-				type="number"
-				name="minDuration"
-				id="minDuration"
-				bind:value={minDuration}
-				on:input={() => (dirty = true)}
-				min="0"
-				max="360"
-				size="3"
-				required
-			/>
-			<label for="maxDuration">Max:</label>
-			<input
-				type="number"
-				name="maxDuration"
-				id="maxDuration"
-				bind:value={maxDuration}
-				on:input={() => (dirty = true)}
-				min="0"
-				max="360"
-				size="3"
-				required
-			/>
-		</div>
+		<button class="btnReset" type="reset" on:click|preventDefault={resetFilters}
+			>Reset</button
+		>
+	</div>
+	<div class="filter">
+		<h3>Rating</h3>
+		<label for="minRating">Min:</label>
+		<input
+			type="number"
+			name="minRating"
+			id="minRating"
+			bind:value={minRating}
+			on:input={() => (dirty = true)}
+			min="0"
+			max="10"
+			size="3"
+			required
+		/>
+		<label for="maxRating">Max:</label>
+		<input
+			type="number"
+			name="maxRating"
+			id="maxRating"
+			bind:value={maxRating}
+			on:input={() => (dirty = true)}
+			min="0"
+			max="10"
+			size="3"
+			required
+		/>
+	</div>
+	<div class="filter">
+		<h3>Votes</h3>
+		<label for="minVotes">Min:</label>
+		<input
+			type="number"
+			name="minVotes"
+			id="minVotes"
+			bind:value={minVotes}
+			on:input={() => (dirty = true)}
+			min="0"
+			size="6"
+			required
+		/>
+		<label for="maxDuration">Max:</label>
+		<input
+			type="number"
+			name="maxVotes"
+			id="maxVotes"
+			bind:value={maxVotes}
+			on:input={() => (dirty = true)}
+			min="0"
+			size="6"
+			required
+		/>
+	</div>
+	<div class="filter">
+		<h3>Duration (minutes)</h3>
+		<label for="minDuration">Min:</label>
+		<input
+			type="number"
+			name="minDuration"
+			id="minDuration"
+			bind:value={minDuration}
+			on:input={() => (dirty = true)}
+			min="0"
+			max="360"
+			size="3"
+			required
+		/>
+		<label for="maxDuration">Max:</label>
+		<input
+			type="number"
+			name="maxDuration"
+			id="maxDuration"
+			bind:value={maxDuration}
+			on:input={() => (dirty = true)}
+			min="0"
+			max="360"
+			size="3"
+			required
+		/>
 	</div>
 </div>
 
 <style>
-	.movieListFilter {
-		width: 100%;
-
-		margin: 0 auto;
-		margin-block-end: 0.75rem;
-
-		font-size: 1.1rem;
-	}
-
-	header {
-		display: flex;
-		padding: 0.25rem 2px;
-		border-radius: 5px;
-		align-items: center;
-
-		grid-row: 2;
-		grid-column: 1 / -1;
-	}
-
 	.disclosure-button {
-		--size: 1.5rem;
-		width: var(--size);
-		height: var(--size);
-
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25em;
 		border: none;
-		padding: 1.5rem;
+		padding: 0.5em 0;
+		margin-inline-start: 1em;
 		box-shadow: none;
+
+		font-weight: 300;
+		color: black;
 	}
 
 	.disclosure-button svg {
-		height: inherit;
+		--size: 1.5em;
+		width: var(--size);
+		height: var(--size);
+
 		border: 1px solid var(--secondary-color);
 		border-radius: 50%;
 
-		transform: translate(-50%, -50%) rotate(-90deg);
+		transform: rotate(-90deg);
 		transition: transform 100ms ease-in;
 	}
 
 	[aria-expanded="true"] svg {
-		transform: translate(-50%, -50%) rotate(0);
+		transform: rotate(0);
 	}
 
 	.content {
@@ -272,28 +253,30 @@
 		column-gap: 1.5rem;
 
 		padding: 0.4rem 0.1rem;
+		margin-block-end: 1rem;
 		border: 1px solid var(--primary-color);
 		border-radius: 8px;
+		box-shadow: 0 0 3px 0 hsla(0, 0%, 0%, 0.15), 0 0 6px 0 hsl(0, 0%, 0%, 0.1);
 
 		width: 100%;
 		min-height: 0;
+		font-size: inherit;
 
 		background-color: white;
 		border-radius: 5px;
 
 		color: black;
-		font-size: 1rem;
 	}
 
 	.content::before {
 		content: "";
 
-		--height: 1.1rem;
+		--height: 1.1em;
 		position: absolute;
 		top: calc(var(--height) * -1);
-		left: 3.4rem;
+		left: 19.45em;
 
-		width: 1.5rem;
+		width: 1.5em;
 		height: var(--height);
 
 		background-color: var(--secondary-color);
@@ -336,13 +319,13 @@
 
 	.filter {
 		display: grid;
-		grid-template-columns: auto auto;
-		row-gap: 1rem;
-		column-gap: 0.5rem;
+		grid-template-columns: repeat(2, 1fr);
+		row-gap: 1em;
+		column-gap: 0.5em;
 
-		padding-inline: 1rem;
-		margin-inline: 0.5rem;
-		margin-block-end: 1rem;
+		padding-inline: 1em;
+
+		margin-block-end: 1em;
 
 		border-radius: 4px;
 	}
@@ -353,6 +336,10 @@
 
 	.filter h3 {
 		grid-column: span 2;
+	}
+
+	.filter input[type="number"] {
+		max-width: 160px;
 	}
 
 	h2,
