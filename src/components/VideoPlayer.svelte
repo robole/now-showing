@@ -2,9 +2,11 @@
 	import { showVideoPlayer } from "../store";
 	import { onMount } from "svelte";
 	import YoutubePlayer from "youtube-player";
+	import Spinner from "./Spinner.svelte";
 
 	export let videos = [];
 
+	let loading = true;
 	let player;
 	let options = {
 		playerVars: {
@@ -214,14 +216,15 @@
 		}, 500);
 	}
 
-	onMount(() => {
+	onMount(async () => {
 		if (hasTrailers()) {
 			videoId = videos[selectedTrailerNum].key;
 
 			player = YoutubePlayer(player, options);
 			player.setVolume(volume);
 			player.loadVideoById(videoId);
-			player.playVideo();
+			await player.playVideo();
+			loading = false;
 
 			hasMore = hasMoreTrailers();
 
@@ -244,8 +247,12 @@
 	>
 		{#if hasTrailers() === false}
 			<button class="btnClose" on:click={close}>X</button>
+			<p class="empty">No video available.</p>
 		{/if}
-		{#if hasTrailers() === true && activity === true}
+
+		{#if loading}
+			<Spinner />
+		{:else if loading === false && activity === true}
 			<button class="btnClose" on:click={close}>X</button>
 			<div class="controls">
 				<h2 class="videoStatus">
@@ -315,22 +322,25 @@
 				>
 			</div>
 		{/if}
+
+		<div class="player" bind:this={player} tabindex="-1" />
 		<!--this prevents `player` from recieving click events -->
 		<div class="capture" on:click|stopPropagation={handleActivity} />
-		<div class="player" bind:this={player} tabindex="-1" />
-		{#if hasTrailers() === false}
-			<p class="empty">No video available.</p>
-		{/if}
 	</div>
 </div>
 
 <style>
 	.wrapper {
 		position: fixed;
-		z-index: var(--zIndex3);
 		top: 5%;
 		left: 5%;
+		z-index: var(--zIndex3);
 		overflow: hidden;
+
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		place-items: center;
 
 		width: 90%;
 		max-width: 1920px;
@@ -338,15 +348,13 @@
 		background-color: rgb(201 201 201);
 	}
 
-	.capture {
-		position: fixed;
-		z-index: var(--zIndex4);
-		width: 100%;
-		height: 100%;
+	:global(.wrapper > *) {
+		grid-column: 1;
+		grid-row: 1;
 	}
 
+	.capture,
 	.player {
-		position: absolute;
 		width: 100%;
 		height: 100%;
 	}
@@ -373,7 +381,7 @@
 
 	.btnClose {
 		position: absolute;
-		z-index: var(--zIndex5);
+		z-index: var(--zIndex4);
 		top: 0;
 		right: 0;
 		padding: 0.6em 0.75em;
@@ -390,7 +398,7 @@
 
 	.controls {
 		position: absolute;
-		z-index: var(--zIndex5);
+		z-index: var(--zIndex4);
 
 		bottom: var(--default-padding);
 		left: 2px;
