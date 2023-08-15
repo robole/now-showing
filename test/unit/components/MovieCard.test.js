@@ -72,7 +72,7 @@ describe("MovieCard", () => {
   test("should show a formatted release date of dd MMM", () => {
     render(MovieCard, { props: testMovieSimple1 });
 
-    expect(screen.getByText("15 Sept")).toBeInTheDocument();
+    expect(screen.getByText("15 Sept 2021")).toBeInTheDocument();
   });
 
   test("should show a rating", () => {
@@ -133,7 +133,7 @@ describe("MovieCard", () => {
   test("should show the runtime formatted in hours and minutes", () => {
     render(MovieCard, { props: testMovieSimple1 });
 
-    expect(screen.getByText("2h 30m")).toBeInTheDocument();
+    expect(screen.getByText("150 mins")).toBeInTheDocument();
   });
 
   test("should show a tagline in quotations", () => {

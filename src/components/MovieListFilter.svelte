@@ -130,7 +130,7 @@
 	title="Reveal filters"
 >
 	<span class:filter-on={filter}>Filter</span>
-	<svg viewBox="0 0 24 24" aria-label="Reveal filters">
+	<svg viewBox="0 0 24 24" role="presentation">
 		<path
 			d="m6.7122 9.3082 5.2911 5.7121 5.2957-5.7456"
 			fill="none"
