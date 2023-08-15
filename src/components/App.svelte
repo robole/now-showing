@@ -106,7 +106,7 @@
 		<h2>No movies found!</h2>
 		<img
 			src="img/no-movies-found.jpg"
-			alt=""
+			alt="An empty cinema. Indicative of no movies being shown."
 			class="noMoviesImg"
 			width="1064"
 			height="784"
@@ -166,5 +166,6 @@
 		max-width: 1064px;
 		margin: 0 auto;
 		aspect-ratio: 4 / 3;
+		margin-block-end: 2rem;
 	}
 </style>

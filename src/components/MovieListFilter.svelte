@@ -1,6 +1,7 @@
 <script>
 	import { latestMovies } from "../store";
 	import { truncate } from "../scripts/format";
+	import dayjs from "dayjs";
 
 	let expanded = false;
 	let dirty = false;
@@ -12,6 +13,8 @@
 	const MAX_DURATION = 300;
 	const MIN_VOTES = 0;
 	const MAX_VOTES = 99999999; /* 99.99 million */
+	const FROM_DATE = dayjs(Date.now()).subtract(2, "month").format("YYYY-MM-DD");
+	const TO_DATE = dayjs(Date.now()).format("YYYY-MM-DD");
 
 	let minRating = MIN_RATING;
 	let maxRating = MAX_RATING;
@@ -19,6 +22,8 @@
 	let maxDuration = MAX_DURATION;
 	let minVotes = MIN_VOTES;
 	let maxVotes = MAX_VOTES;
+	let fromDate = FROM_DATE;
+	let toDate = TO_DATE;
 
 	function applyFilters() {
 		let filteredMovies;
@@ -29,7 +34,8 @@
 				if (
 					filterByRating(movie) ||
 					filterByRuntime(movie) ||
-					filterByVotes(movie)
+					filterByVotes(movie) ||
+					filterByReleaseDate(movie)
 				) {
 					movie.show = false;
 				} else {
@@ -76,6 +82,21 @@
 		return filtered;
 	}
 
+	function filterByReleaseDate(movie) {
+		let filtered = true;
+		let releaseDate = dayjs(movie.release_date);
+
+		if (
+			(releaseDate.isAfter(dayjs(fromDate)) ||
+				releaseDate.isSame(dayjs(fromDate))) &&
+			(releaseDate.isBefore(dayjs(toDate)) || releaseDate.isSame(dayjs(toDate)))
+		) {
+			filtered = false;
+		}
+
+		return filtered;
+	}
+
 	function resetFilters() {
 		dirty = false;
 
@@ -85,6 +106,8 @@
 		maxDuration = MAX_DURATION;
 		minVotes = MIN_VOTES;
 		maxVotes = MAX_VOTES;
+		fromDate = FROM_DATE;
+		toDate = TO_DATE;
 
 		if (filter) {
 			let resetMovies = $latestMovies.map((movie) => {
@@ -211,6 +234,27 @@
 			required
 		/>
 	</div>
+	<div class="filter">
+		<h3>Release date</h3>
+		<label for="fromDate">From:</label>
+		<input
+			type="date"
+			name="fromDate"
+			id="fromDate"
+			bind:value={fromDate}
+			on:input={() => (dirty = true)}
+			required
+		/>
+		<label for="toDate">To:</label>
+		<input
+			type="date"
+			name="toDate"
+			id="toDate"
+			bind:value={toDate}
+			on:input={() => (dirty = true)}
+			required
+		/>
+	</div>
 </div>
 
 <style>
@@ -274,7 +318,7 @@
 		--height: 1.1em;
 		position: absolute;
 		top: calc(var(--height) * -1);
-		left: 19.45em;
+		left: 19.22em;
 
 		width: 1.5em;
 		height: var(--height);
@@ -342,7 +386,10 @@
 		max-width: 160px;
 	}
 
-	h2,
+	.filter input[type="date"] {
+		min-width: 140px;
+	}
+
 	h3 {
 		font-family: var(--sans-font-family);
 		padding: 0;
@@ -350,10 +397,6 @@
 		font-size: 1.1rem;
 		text-transform: none;
 		font-weight: 300;
-	}
-
-	h2 {
-		display: inline-block;
 	}
 
 	.filter-on {

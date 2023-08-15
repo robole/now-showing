@@ -56,9 +56,11 @@ label {
 
 input,
 select {
-  padding: 0;
   border: none;
   margin: 0;
+	padding: 0;
+	padding-inline-start: 0.15rem;
+	padding-block: .25rem;
   box-shadow: rgb(0 0 0 / 18%) 0 0 0 1px, rgb(0 0 0 / 5%) 0 0 0 2px;
 }
 
@@ -71,8 +73,12 @@ button {
 	font-family: var(--sans-font-family);
 }
 
+input[type="date"]{
+	font-size: 0.9em;
+	padding-block: 0.15rem;
+}
+
 select {
-  padding: 0.25rem;
   background-color: transparent;
 }
 
