@@ -1,20 +1,37 @@
 <script>
-	import { latestMovies, sortByField } from "../store";
-	import { sortMoviesBy } from "../scripts/sort";
+	import { latestMovies, sortField, sortOrder } from "../store";
+	import { sortMovies } from "../scripts/sort";
+
+	let value;
 
 	function sort() {
-		if ($latestMovies.length > 0) {
-			$latestMovies = sortMoviesBy($latestMovies, $sortByField);
+		if (value.includes("|")) {
+			let values = value.split("|");
+			$sortField = values[0];
+			$sortOrder = values[1];
+
+			if ($latestMovies.length > 0) {
+				$latestMovies = sortMovies($latestMovies, $sortField, $sortOrder);
+			}
+		} else {
+			$sortField = value;
+
+			if ($latestMovies.length > 0) {
+				$latestMovies = sortMovies($latestMovies, $sortField);
+			}
 		}
 	}
 </script>
 
 <label
 	>Sort
-	<select name="sort" id="sort" bind:value={$sortByField} on:change={sort}>
-		<option value="vote_average">Rating (highest first)</option>
-		<option value="runtime">Duration (longest first)</option>
-		<option value="release_date">Release Date (newest first)</option>
+	<select name="sort" id="sort" bind:value on:change={sort}>
+		<option value="vote_average|desc">Rating (highest first)</option>
+		<option value="vote_average|asc">Rating (lowest first)</option>
+		<option value="runtime|desc">Duration (longest first)</option>
+		<option value="runtime|asc">Duration (shortest first)</option>
+		<option value="release_date|desc">Release Date (newest first)</option>
+		<option value="release_date|asc">Release Date (oldest first)</option>
 	</select>
 </label>
 

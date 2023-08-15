@@ -26,6 +26,7 @@
 		return new Date(string).toLocaleDateString("en-gb", {
 			day: "numeric",
 			month: "short",
+			year: "numeric",
 		});
 	}
 

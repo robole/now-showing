@@ -6,12 +6,12 @@
 		languages,
 		selectedCountryCode,
 		countries,
-		sortByField,
+		sortField,
 		loading,
 	} from "../store";
 
 	import { fetchLatestMovieDetailed } from "../scripts/tmdb";
-	import { sortMoviesBy } from "../scripts/sort";
+	import { sortMovies } from "../scripts/sort";
 
 	let languageCode = $selectedLanguageCode;
 	let countryCode = $selectedCountryCode;
@@ -35,7 +35,7 @@
 				$selectedLanguageCode,
 				$selectedCountryCode
 			);
-			let sortedMovies = sortMoviesBy(movies, $sortByField);
+			let sortedMovies = sortMovies(movies, $sortField);
 			$latestMovies = sortedMovies;
 
 			$loading = false;

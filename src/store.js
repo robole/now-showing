@@ -6,7 +6,8 @@ export let selectedMovieTrailers = writable([]);
 export let totalPages = writable(1);
 export let numOfPagesShown = writable(1);
 
-export let sortByField = writable("vote_average");
+export let sortField = writable("vote_average");
+export let sortOrder = writable("desc");
 
 export let showVideoPlayer = writable(false);
 

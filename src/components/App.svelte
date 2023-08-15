@@ -9,7 +9,7 @@
 		selectedMovieTrailers,
 		languages,
 		countries,
-		sortByField,
+		sortField,
 		totalPages,
 		numOfPagesShown,
 		loading,
@@ -20,7 +20,7 @@
 		fetchLanguages,
 		fetchCountries,
 	} from "../scripts/tmdb";
-	import { sortMoviesBy, sort } from "../scripts/sort";
+	import { sortMovies, sort } from "../scripts/sort";
 
 	import Header from "./Header.svelte";
 	import SkeletonMovieList from "./SkeletonMovieList.svelte";
@@ -44,7 +44,7 @@
 				$selectedLanguageCode,
 				$selectedCountryCode
 			);
-			let sortedMovies = sortMoviesBy(movies, $sortByField);
+			let sortedMovies = sortMovies(movies, $sortField);
 			$latestMovies = sortedMovies;
 		} catch (error) {
 			$errorMessage = error.message;
@@ -73,7 +73,7 @@
 			}
 
 			let allMovies = [...$latestMovies, ...movies];
-			let sortedMovies = sortMoviesBy(allMovies, $sortByField);
+			let sortedMovies = sortMovies(allMovies, $sortField);
 			$latestMovies = sortedMovies;
 			$loading = false;
 		}

@@ -1,14 +1,32 @@
-export function sortMoviesBy(array, field) {
-  if (field === "release_date") {
-    return sortMoviesByDate(array);
+/**
+* Sort the array of movies provided by the field provided.
+* @param {array} array - The array.
+* @param {string} field - The field to sort by.
+* @param {string} [order="desc"] - The order to sort by. It can be ascending ('asc') or descending ('desc') order.
+* @return {array} A sorted array.
+*/
+export function sortMovies(array, field, order = "desc") {
+	if (field === "release_date") {
+    return sortMoviesByReleaseDate(array, order);
   }
-  return sort(array, field);
+	
+  return sort(array, field, order);
 }
 
-function sortMoviesByDate(array) {
-  return array.sort(
-    (a, b) => Date.parse(b.release_date) - Date.parse(a.release_date)
-  );
+function sortMoviesByReleaseDate(array, order = "desc") {
+	let sorted;
+
+	if(order === "desc"){
+		sorted = array.sort(
+			(a, b) => Date.parse(b.release_date) - Date.parse(a.release_date)
+		);
+	}
+	else if(order === "asc"){
+		sorted = array.sort(
+			(a, b) => Date.parse(a.release_date) - Date.parse(b.release_date));
+	}
+
+	return sorted;
 }
 
 export function sort(array, field, order = "desc") {
