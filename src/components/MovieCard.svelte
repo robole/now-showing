@@ -44,21 +44,7 @@
 	}
 
 	function formatRuntime(num) {
-		let string;
-
-		if (num < 60) {
-			string = `${num}m`;
-		} else {
-			let min = num % 60;
-
-			if (min > 0) {
-				string = `${Math.trunc(num / 60)}h ${min}m`;
-			} else {
-				string = `${Math.trunc(num / 60)}h`;
-			}
-		}
-
-		return string;
+		return `${num} mins`;
 	}
 
 	function formatRatingCount(num, digits) {
