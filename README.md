@@ -18,15 +18,15 @@ Browse the catalogue of movies that are showing in movies theaters (cinemas) to 
 ## Features
 
 1. The most recent 20 movies in movie theaters are displayed as a list of cards.
-1. Each card shows the key info for each movie: title, tagline, rating, number of votes, release date, running time, age certification, genres, directed by, actors (3 leading actors), and description.
+1. Each card shows the key info for each movie: *title*, *tagline*, *rating*, *number of votes*, *release date*, *duration*, *age certification*, *genres*, *directed by*, *star actors*, and *description*.
 1. Ratings are colour coded for quick identification, a rating that is:
 	- Greater than or equal 8 is coloured gold,
 	- Less than 8 and greater than or equal to 6.5 is coloured silver,
 	- Less than 6.5 and greater than or equal to 5.5 is coloured bronze,
 	- Less than 5.5 is coloured dark brown.
-1. You can click a "Show More" button to show the next most recent 20 movies that were/are showing, if more are available.
-1. The list of movies can be sorted by rating, duration and release date. They are sorted by rating (descending order) by default.
-1. The list of movies can be filtered by rating (min and max values).
+1. You can click a "Show More" button to show the next most recent 20 movies if more are available.
+1. The list of movies can be sorted by *rating*, *duration* and *release date* in ascending and descending order. They are sorted by *rating (highest first)* by default.
+1. The list of movies can be filtered by *rating*, *duration*, *votes*, and *release date*.
 1. You can view the trailers quickly for each movie in a pop-up custom video player. Videos are sourced from YouTube but some of the cruft from YouTube is blocked. If there is more than one trailer for a movie, you can cycle through them.
 1. The video player has keyboard support for all actions:
 	- <kbd>Spacebar</kbd>: Play/pause,
