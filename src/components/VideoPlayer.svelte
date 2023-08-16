@@ -254,9 +254,7 @@
 		{#if hasTrailers() === false}
 			<button class="btnClose" on:click={close}>X</button>
 			<p class="empty">No video available.</p>
-		{/if}
-
-		{#if loading}
+		{:else if hasTrailers() === true && loading === true}
 			<Spinner />
 		{:else if loading === false && activity === true}
 			<button class="btnClose" on:click={close}>X</button>
