@@ -7,6 +7,7 @@
 	export let videos = [];
 
 	let loading = true;
+	let dialog;
 	let player;
 	let options = {
 		playerVars: {
@@ -33,6 +34,11 @@
 	let activity = false;
 	let activityTimeout;
 	let currentTimeInterval;
+
+	function initDialog(node) {
+		dialog = node;
+		dialog.show();
+	}
 
 	async function playVideo() {
 		if (player) {
@@ -118,6 +124,7 @@
 	}
 
 	function close() {
+		dialog.close();
 		$showVideoPlayer = false;
 		stopCurrentTimeRunning();
 	}
@@ -236,12 +243,11 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="bg modalBackground" on:click|self={close}>
-	<div
+<div class="bg modalBackground" on:click|self={close} on:keyup={handleKeydown}>
+	<dialog
 		class="wrapper"
-		role="dialog"
 		aria-label="Video Player"
-		aria-modal="true"
+		use:initDialog
 		on:mousemove={handleActivity}
 		on:touchmove={handleActivity}
 	>
@@ -325,8 +331,9 @@
 
 		<div class="player" bind:this={player} tabindex="-1" />
 		<!--this prevents `player` from recieving click events -->
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<div class="capture" on:click|stopPropagation={handleActivity} />
-	</div>
+	</dialog>
 </div>
 
 <style>
@@ -345,6 +352,7 @@
 		width: 90%;
 		max-width: 1920px;
 		height: 90%;
+		padding: 0;
 		background-color: rgb(201 201 201);
 	}
 

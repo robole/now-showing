@@ -96,7 +96,7 @@
 
 <Header />
 
-<main>
+<main inert={$showVideoPlayer || $showSettings || $showError}>
 	<MovieListSort />
 	<MovieListFilter />
 
@@ -120,19 +120,19 @@
 	{#if $loading}
 		<SkeletonMovieList />
 	{/if}
-
-	{#if $showVideoPlayer}
-		<VideoPlayer videos={$selectedMovieTrailers} />
-	{/if}
-
-	{#if $showSettings}
-		<Settings />
-	{/if}
-
-	{#if $showError}
-		<Error message={$errorMessage} />
-	{/if}
 </main>
+
+{#if $showVideoPlayer}
+	<VideoPlayer videos={$selectedMovieTrailers} />
+{/if}
+
+{#if $showSettings}
+	<Settings />
+{/if}
+
+{#if $showError}
+	<Error message={$errorMessage} />
+{/if}
 
 <Footer />
 

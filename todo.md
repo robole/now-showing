@@ -2,7 +2,6 @@
 
 ## Improvements
 
-1. Change popup dialogs to use new `dialog` element?
 1. Prevent scrolling when dialog is visible. There is a property for that.
 1. Extract controls out of VideoPlayer as separate component?
 1. Add icon for when filter is applied? Currently heading is formatted as bold when it filters are on.

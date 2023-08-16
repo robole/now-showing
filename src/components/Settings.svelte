@@ -53,14 +53,8 @@
 	}
 </script>
 
-<div class="bg modalBackground" on:click|self={close}>
-	<form
-		role="dialog"
-		aria-labelledby="settingsTitle"
-		aria-modal="true"
-		on:submit|preventDefault={save}
-		on:keydown={handleKeydown}
-	>
+<div class="bg modalBackground" on:click|self={close} on:keyup={handleKeydown}>
+	<dialog aria-labelledby="settingsTitle" on:keyup={handleKeydown}>
 		<h2 id="settingsTitle">Regional settings</h2>
 		<label for="languageSetting">Language</label>
 		<select
@@ -85,9 +79,9 @@
 				<option value={c.iso_3166_1}>{c.english_name}</option>
 			{/each}
 		</select>
-		<button type="submit">Save</button>
+		<button type="button" on:click={save}>Save</button>
 		<button on:click={close}>Cancel</button>
-	</form>
+	</dialog>
 </div>
 
 <style>
@@ -98,7 +92,7 @@
 		place-items: center;
 	}
 
-	form {
+	dialog {
 		z-index: var(--zIndex3);
 
 		display: flex;
