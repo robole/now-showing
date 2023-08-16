@@ -1,6 +1,8 @@
 <script>
 	import {
+		showVideoPlayer,
 		showSettings,
+		showError,
 		selectedLanguageCode,
 		selectedCountryCode,
 	} from "../store";
@@ -10,7 +12,7 @@
 	}
 </script>
 
-<header>
+<header inert={$showVideoPlayer || $showSettings || $showError}>
 	<div class="controls">
 		<button
 			on:click={handleClick}

@@ -3,30 +3,31 @@
 
 	export let message = "Uh oh! Something went wrong!";
 
+	let dialog;
+
+	function initDialog(node) {
+		dialog = node;
+		dialog.show();
+	}
+
 	function close() {
+		dialog.close();
 		$showError = false;
 	}
 
-	async function handleKeydown(e) {
+	async function handleKeyup(e) {
 		if (e.key === "Escape") {
 			close();
 		}
 	}
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
-
-<div class="bg modalBackground" on:click|self={close}>
-	<div
-		role="dialog"
-		class="dialog"
-		aria-labelledby="settingsTitle"
-		aria-modal="true"
-	>
+<div class="bg modalBackground" on:click|self={close} on:keyup={handleKeyup}>
+	<dialog aria-labelledby="settingsTitle" use:initDialog>
 		<button class="btnClose" on:click={close}>X</button>
 		<h2>Error</h2>
 		<p>{message}</p>
-	</div>
+	</dialog>
 </div>
 
 <style>
@@ -37,7 +38,7 @@
 		place-items: center;
 	}
 
-	.dialog {
+	dialog {
 		position: relative;
 		z-index: var(--zIndex3);
 		display: flex;

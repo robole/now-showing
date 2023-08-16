@@ -103,7 +103,7 @@
 		handleActivity();
 	}
 
-	async function handleKeydown(e) {
+	async function handleKeyup(e) {
 		if (e.key === "ArrowDown") {
 			e.preventDefault();
 			await decreaseVolume();
@@ -241,9 +241,9 @@
 	});
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window on:keyup={handleKeyup} />
 
-<div class="bg modalBackground" on:click|self={close} on:keyup={handleKeydown}>
+<div class="bg modalBackground" on:click|self={close} on:keyup={handleKeyup}>
 	<dialog
 		class="wrapper"
 		aria-label="Video Player"

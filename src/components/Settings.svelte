@@ -42,7 +42,7 @@
 		}
 	}
 
-	function handleKeydown(e) {
+	function handleKeyup(e) {
 		if (e.key === "Escape") {
 			close();
 		}
@@ -53,8 +53,8 @@
 	}
 </script>
 
-<div class="bg modalBackground" on:click|self={close} on:keyup={handleKeydown}>
-	<dialog aria-labelledby="settingsTitle" on:keyup={handleKeydown}>
+<div class="bg modalBackground" on:click|self={close} on:keyup={handleKeyup}>
+	<dialog aria-labelledby="settingsTitle" on:keyup={handleKeyup}>
 		<h2 id="settingsTitle">Regional settings</h2>
 		<label for="languageSetting">Language</label>
 		<select

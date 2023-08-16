@@ -1,4 +1,8 @@
-<footer>
+<script>
+	import { showVideoPlayer, showSettings, showError } from "../store";
+</script>
+
+<footer inert={$showVideoPlayer || $showSettings || $showError}>
 	<p>
 		This product uses the <a
 			href="https://developers.themoviedb.org/3/getting-started/introduction"
