@@ -251,13 +251,12 @@
 		on:mousemove={handleActivity}
 		on:touchmove={handleActivity}
 	>
+		<button class="btnClose" on:click={close}>X</button>
 		{#if hasTrailers() === false}
-			<button class="btnClose" on:click={close}>X</button>
-			<p class="empty">No video available.</p>
+			<p class="empty">No trailers available.</p>
 		{:else if hasTrailers() === true && loading === true}
 			<Spinner />
 		{:else if loading === false && activity === true}
-			<button class="btnClose" on:click={close}>X</button>
 			<div class="controls">
 				<h2 class="videoStatus">
 					Trailer {selectedTrailerNum + 1} of {videos.length}
