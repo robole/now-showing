@@ -242,8 +242,6 @@
 	}
 </script>
 
-<svelte:window on:keyup={handleKeyup} />
-
 <div class="bg modalBackground" on:click|self={close} on:keyup={handleKeyup}>
 	<dialog
 		class="wrapper"
@@ -351,6 +349,7 @@
 		max-width: 1920px;
 		height: 90%;
 		padding: 0;
+		margin: 0;
 		background-color: rgb(201 201 201);
 	}
 

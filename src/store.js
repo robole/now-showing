@@ -1,12 +1,14 @@
 import { writable } from "svelte/store";
 import dayjs from "dayjs";
 
+export let loading = writable(true);
 export let latestMovies = writable([]);
 export let selectedMovieTrailers = writable([]);
 
 export let totalPages = writable(1);
 export let numOfPagesShown = writable(1);
 
+// sorting
 export let sortField = writable("vote_average");
 export let sortOrder = writable("desc");
 
@@ -20,16 +22,15 @@ export let maxVotes = writable(99999999);
 export let fromDate = writable(dayjs(Date.now()).subtract(3, "month").format("YYYY-MM-DD"));
 export let toDate = writable(dayjs(Date.now()).format("YYYY-MM-DD"));
 
+// modal dialogs
 export let showVideoPlayer = writable(false);
-
 export let showError = writable(false);
-export let errorMessage = writable("");
-
-export let loading = writable(true);
-
-// settings
 export let showSettings = writable(false);
 
+// error dialog
+export let errorMessage = writable("");
+
+// settings
 export let selectedLanguageCode = writable(
   localStorage.getItem("selectedLanguageCode") || "en"
 );

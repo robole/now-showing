@@ -9,6 +9,7 @@
 ## Bugs
 
 1. When new movies are added to array by hitting "View More", filters are not applied.
+1. Click outside behaviour does not work with `dialog`.
 
 ## Additional features
 

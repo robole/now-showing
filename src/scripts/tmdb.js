@@ -3,6 +3,22 @@ import { totalPages } from "../store";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 
+// include_adult=false&include_video=false&language=en-US&page=1&region=IE&release_date.gte=2023-01-01&release_date.lte=2023-08-20&sort_by=vote_average.desc
+/* export async function fetchMovies(languageCode, countryCode, regionalReleaseDateFrom, regionalReleaseDateTo, page = 1){
+	let response = await fetch(
+    `${BASE_URL}discover/movie?api_key=${
+      import.meta.env.VITE_API_KEY
+    }&include_adult=true&language=${languageCode}&region=${countryCode}&release_date.gte=${regionalReleaseDateFrom}&release_date.lte=${regionalReleaseDateTo}&sort_by=vote_average.desc&page=${page}`
+  );
+
+  handleErrors(response);
+  let res = await response.json();
+
+  totalPages.set(res.total_pages);
+
+  return res;
+} */
+
 export async function fetchLatestMovies(languageCode, countryCode, page = 1) {
   let response = await fetch(
     `${BASE_URL}movie/now_playing?api_key=${
