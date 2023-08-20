@@ -7,7 +7,7 @@
 
 	function initDialog(node) {
 		dialog = node;
-		dialog.show();
+		dialog.showModal();
 	}
 
 	function close() {

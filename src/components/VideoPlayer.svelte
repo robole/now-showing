@@ -37,7 +37,7 @@
 
 	function initDialog(node) {
 		dialog = node;
-		dialog.show();
+		dialog.showModal();
 	}
 
 	async function playVideo() {

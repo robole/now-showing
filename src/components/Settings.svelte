@@ -13,9 +13,15 @@
 	import { fetchLatestMovieDetailed } from "../scripts/tmdb";
 	import { sortMovies } from "../scripts/sort";
 
+	let dialog;
 	let languageCode = $selectedLanguageCode;
 	let countryCode = $selectedCountryCode;
 	let dirty = false;
+
+	function initDialog(node) {
+		dialog = node;
+		dialog.showModal();
+	}
 
 	function close() {
 		$showSettings = false;
@@ -54,7 +60,7 @@
 </script>
 
 <div class="bg modalBackground" on:click|self={close} on:keyup={handleKeyup}>
-	<dialog aria-labelledby="settingsTitle" on:keyup={handleKeyup}>
+	<dialog aria-labelledby="settingsTitle" use:initDialog on:keyup={handleKeyup}>
 		<h2 id="settingsTitle">Regional settings</h2>
 		<label for="languageSetting">Language</label>
 		<select

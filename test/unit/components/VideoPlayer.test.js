@@ -21,7 +21,7 @@ describe("VideoPlayer", () => {
 
   test("should render", () => {
     render(VideoPlayer);
-    expect(screen.getByText("No video available.")).toBeInTheDocument();
+    expect(screen.getByText("No trailers available.")).toBeInTheDocument();
   });
 
   // Need to make npm package `youtube-player` an ES module for this test to work?
