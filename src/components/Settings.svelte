@@ -12,15 +12,19 @@
 
 	import { fetchLatestMovieDetailed } from "../scripts/tmdb";
 	import { sortMovies } from "../scripts/sort";
+	import { onMount } from "svelte";
 
 	let dialog;
 	let languageCode = $selectedLanguageCode;
 	let countryCode = $selectedCountryCode;
 	let dirty = false;
 
+	onMount(() => {
+		dialog.showModal();
+	});
+
 	function initDialog(node) {
 		dialog = node;
-		dialog.showModal();
 	}
 
 	function close() {
@@ -51,11 +55,8 @@
 	function handleKeyup(e) {
 		if (e.key === "Escape") {
 			close();
+			dialog.close();
 		}
-	}
-
-	function init(el) {
-		el.focus();
 	}
 </script>
 
@@ -67,7 +68,6 @@
 			id="languageSetting"
 			bind:value={languageCode}
 			on:change={() => (dirty = true)}
-			use:init
 		>
 			{#each $languages as l}
 				<option value={l.iso_639_1} selected={l.iso_639_1 === languageCode}

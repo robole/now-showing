@@ -1,13 +1,17 @@
 <script>
 	import { showError } from "../store";
+	import { onMount } from "svelte";
 
 	export let message = "Uh oh! Something went wrong!";
 
 	let dialog;
 
+	onMount(() => {
+		dialog.showModal();
+	});
+
 	function initDialog(node) {
 		dialog = node;
-		dialog.showModal();
 	}
 
 	function close() {

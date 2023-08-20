@@ -9,7 +9,6 @@
 ## Bugs
 
 1. When new movies are added to array by hitting "View More", filters are not applied.
-1. Calls to `dialog.showModal()` breaks the tests.
 
 ## Additional features
 

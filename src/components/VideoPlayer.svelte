@@ -35,9 +35,27 @@
 	let activityTimeout;
 	let currentTimeInterval;
 
+	onMount(async () => {
+		dialog.showModal();
+
+		if (hasTrailers()) {
+			videoId = videos[selectedTrailerNum].key;
+
+			player = YoutubePlayer(player, options);
+			player.setVolume(volume);
+			player.loadVideoById(videoId);
+			await player.playVideo();
+			loading = false;
+
+			hasMore = hasMoreTrailers();
+
+			showCurrentTime();
+			showDuration();
+		}
+	});
+
 	function initDialog(node) {
 		dialog = node;
-		dialog.showModal();
 	}
 
 	async function playVideo() {
@@ -222,23 +240,6 @@
 			}
 		}, 500);
 	}
-
-	onMount(async () => {
-		if (hasTrailers()) {
-			videoId = videos[selectedTrailerNum].key;
-
-			player = YoutubePlayer(player, options);
-			player.setVolume(volume);
-			player.loadVideoById(videoId);
-			await player.playVideo();
-			loading = false;
-
-			hasMore = hasMoreTrailers();
-
-			showCurrentTime();
-			showDuration();
-		}
-	});
 </script>
 
 <svelte:window on:keyup={handleKeyup} />
