@@ -14,6 +14,14 @@
 		numOfPagesShown,
 		loading,
 		errorMessage,
+		minRating,
+		maxRating,
+		minVotes,
+		maxVotes,
+		minDuration,
+		maxDuration,
+		fromDate,
+		toDate,
 	} from "../store";
 	import {
 		fetchLatestMovieDetailed,
@@ -98,7 +106,16 @@
 
 <main inert={$showVideoPlayer || $showSettings || $showError}>
 	<MovieListSort />
-	<MovieListFilter />
+	<MovieListFilter
+		minRating={$minRating}
+		maxRating={$maxRating}
+		minVotes={$minVotes}
+		maxVotes={$maxVotes}
+		minDuration={$minDuration}
+		maxDuration={$maxDuration}
+		fromDate={$fromDate}
+		toDate={$toDate}
+	/>
 
 	{#if $latestMovies.length > 0}
 		<MovieList movies={$latestMovies} />

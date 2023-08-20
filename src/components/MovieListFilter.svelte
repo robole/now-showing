@@ -1,29 +1,41 @@
 <script>
 	import { latestMovies } from "../store";
 	import { truncate } from "../scripts/format";
+	import { onMount } from "svelte";
 	import dayjs from "dayjs";
 
 	let expanded = false;
 	let dirty = false;
 	let filter = false;
 
-	const MIN_RATING = 0;
-	const MAX_RATING = 10;
-	const MIN_DURATION = 0;
-	const MAX_DURATION = 300;
-	const MIN_VOTES = 0;
-	const MAX_VOTES = 99999999; /* 99.99 million */
-	const FROM_DATE = dayjs(Date.now()).subtract(2, "month").format("YYYY-MM-DD");
-	const TO_DATE = dayjs(Date.now()).format("YYYY-MM-DD");
+	export let minRating;
+	export let maxRating;
+	export let minDuration;
+	export let maxDuration;
+	export let minVotes;
+	export let maxVotes;
+	export let fromDate;
+	export let toDate;
 
-	let minRating = MIN_RATING;
-	let maxRating = MAX_RATING;
-	let minDuration = MIN_DURATION;
-	let maxDuration = MAX_DURATION;
-	let minVotes = MIN_VOTES;
-	let maxVotes = MAX_VOTES;
-	let fromDate = FROM_DATE;
-	let toDate = TO_DATE;
+	let initialMinRating;
+	let initialMaxRating;
+	let initialMinDuration;
+	let initialMaxDuration;
+	let initialMinVotes;
+	let initialMaxVotes;
+	let initialFromDate;
+	let initialToDate;
+
+	onMount(async () => {
+		initialMinRating = minRating;
+		initialMaxRating = maxRating;
+		initialMinDuration = minDuration;
+		initialMaxDuration = maxDuration;
+		initialMinVotes = minVotes;
+		initialMaxVotes = maxVotes;
+		initialFromDate = fromDate;
+		initialToDate = toDate;
+	});
 
 	function applyFilters() {
 		let filteredMovies;
@@ -100,14 +112,14 @@
 	function resetFilters() {
 		dirty = false;
 
-		minRating = MIN_RATING;
-		maxRating = MAX_RATING;
-		minDuration = MIN_DURATION;
-		maxDuration = MAX_DURATION;
-		minVotes = MIN_VOTES;
-		maxVotes = MAX_VOTES;
-		fromDate = FROM_DATE;
-		toDate = TO_DATE;
+		minRating = initialMinRating;
+		maxRating = initialMaxRating;
+		minDuration = initialMinDuration;
+		maxDuration = initialMaxDuration;
+		minVotes = initialMinVotes;
+		maxVotes = initialMaxVotes;
+		fromDate = initialFromDate;
+		toDate = initialToDate;
 
 		if (filter) {
 			let resetMovies = $latestMovies.map((movie) => {
