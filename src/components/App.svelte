@@ -10,6 +10,7 @@
 		languages,
 		countries,
 		sortField,
+		sortOrder,
 		totalPages,
 		numOfPagesShown,
 		loading,
@@ -24,7 +25,7 @@
 		toDate,
 	} from "../store";
 	import {
-		fetchLatestMovieDetailed,
+		fetchMoviesDetailed,
 		fetchLanguages,
 		fetchCountries,
 	} from "../scripts/tmdb";
@@ -48,12 +49,21 @@
 		$loading = true;
 
 		try {
-			let movies = await fetchLatestMovieDetailed(
-				$selectedLanguageCode,
-				$selectedCountryCode
-			);
-			let sortedMovies = sortMovies(movies, $sortField);
-			$latestMovies = sortedMovies;
+			let movies = await fetchMoviesDetailed(`${$sortField}.${$sortOrder}`, {
+				languageCode: $selectedLanguageCode,
+				countryCode: $selectedCountryCode,
+				page: $numOfPagesShown,
+				minRating: $minRating,
+				maxRating: $maxRating,
+				minVotes: $minVotes,
+				maxVotes: $maxVotes,
+				minDuration: $minDuration,
+				maxDuration: $maxDuration,
+				releaseDateFrom: $fromDate,
+				releaseDateTo: $toDate,
+			});
+
+			$latestMovies = movies;
 		} catch (error) {
 			$errorMessage = error.message;
 			$showError = true;
@@ -70,11 +80,19 @@
 			let movies = [];
 
 			try {
-				movies = await fetchLatestMovieDetailed(
-					$selectedLanguageCode,
-					$selectedCountryCode,
-					$numOfPagesShown
-				);
+				movies = await fetchMoviesDetailed(`${$sortField}.${$sortOrder}`, {
+					languageCode: $selectedLanguageCode,
+					countryCode: $selectedCountryCode,
+					page: $numOfPagesShown,
+					minRating: $minRating,
+					maxRating: $maxRating,
+					minVotes: $minVotes,
+					maxVotes: $maxVotes,
+					minDuration: $minDuration,
+					maxDuration: $maxDuration,
+					releaseDateFrom: $fromDate,
+					releaseDateTo: $toDate,
+				});
 			} catch (error) {
 				$errorMessage = error.message;
 				$showError = true;
@@ -118,7 +136,7 @@
 	/>
 
 	{#if $latestMovies.length > 0}
-		<MovieList movies={$latestMovies} />
+		<MovieList movies={$latestMovies} country={$selectedCountryCode} />
 	{:else if $latestMovies.length === 0 && $loading === false}
 		<h2>No movies found!</h2>
 		<img

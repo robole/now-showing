@@ -2,13 +2,16 @@
 
 ## Improvements
 
+1. When new movies are added to array by hitting "View More", filters are not applied.
+1. Review instances of language string. Is it "en-US" versus "en"?
+1. Review case where *sort by* has changed and next page is hit, will need to trigger a fetch request to refresh data.
 1. Extract controls out of VideoPlayer as separate component?
 1. Prevent scrolling when dialog is visible - `overscroll-behavior` does not work as expected!
 1. Add e2e test. What is the demarcation between unit and e2e?
 
 ## Bugs
 
-1. When new movies are added to array by hitting "View More", filters are not applied.
+
 1. Click outside behaviour does not work with `dialog`.
 
 ## Additional features

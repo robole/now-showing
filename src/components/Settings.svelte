@@ -7,11 +7,20 @@
 		selectedCountryCode,
 		countries,
 		sortField,
+		sortOrder,
+		numOfPagesShown,
+		minRating,
+		minDuration,
+		minVotes,
+		fromDate,
+		maxRating,
+		maxDuration,
+		maxVotes,
+		toDate,
 		loading,
 	} from "../store";
 
-	import { fetchLatestMovieDetailed } from "../scripts/tmdb";
-	import { sortMovies } from "../scripts/sort";
+	import { fetchMoviesDetailed } from "../scripts/tmdb";
 	import { onMount } from "svelte";
 
 	let dialog;
@@ -28,6 +37,7 @@
 	}
 
 	function close() {
+		dialog.close();
 		$showSettings = false;
 	}
 
@@ -41,13 +51,23 @@
 
 			close();
 
-			let movies = await fetchLatestMovieDetailed(
-				$selectedLanguageCode,
-				$selectedCountryCode
-			);
-			let sortedMovies = sortMovies(movies, $sortField);
-			$latestMovies = sortedMovies;
+			$numOfPagesShown = 1;
 
+			let movies = await fetchMoviesDetailed(`${$sortField}.${$sortOrder}`, {
+				languageCode: $selectedLanguageCode,
+				countryCode: $selectedCountryCode,
+				page: $numOfPagesShown,
+				minRating: $minRating,
+				maxRating: $maxRating,
+				minVotes: $minVotes,
+				maxVotes: $maxVotes,
+				minDuration: $minDuration,
+				maxDuration: $maxDuration,
+				releaseDateFrom: $fromDate,
+				releaseDateTo: $toDate,
+			});
+
+			$latestMovies = movies;
 			$loading = false;
 		}
 	}
@@ -55,7 +75,6 @@
 	function handleKeyup(e) {
 		if (e.key === "Escape") {
 			close();
-			dialog.close();
 		}
 	}
 </script>

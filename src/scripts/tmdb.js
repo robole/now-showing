@@ -3,35 +3,70 @@ import { totalPages } from "../store";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 
-// include_adult=false&include_video=false&language=en-US&page=1&region=IE&release_date.gte=2023-01-01&release_date.lte=2023-08-20&sort_by=vote_average.desc
-/* export async function fetchMovies(languageCode, countryCode, regionalReleaseDateFrom, regionalReleaseDateTo, page = 1){
+export async function fetchMovies(sortBy ="vote_average.desc", filterOptions = { page: 1}){
+	let queryString = getQueryString(sortBy, filterOptions);
+	
 	let response = await fetch(
     `${BASE_URL}discover/movie?api_key=${
       import.meta.env.VITE_API_KEY
-    }&include_adult=true&language=${languageCode}&region=${countryCode}&release_date.gte=${regionalReleaseDateFrom}&release_date.lte=${regionalReleaseDateTo}&sort_by=vote_average.desc&page=${page}`
+    }${queryString}`
   );
 
   handleErrors(response);
   let res = await response.json();
-
   totalPages.set(res.total_pages);
-
   return res;
-} */
+}
 
-export async function fetchLatestMovies(languageCode, countryCode, page = 1) {
-  let response = await fetch(
-    `${BASE_URL}movie/now_playing?api_key=${
-      import.meta.env.VITE_API_KEY
-    }&language=${languageCode}&region=${countryCode}&page=${page}`
-  );
+function getQueryString(sortBy, filterOptions){
+	const THEATRICAL_RELEASE_TYPE = 3;
+	let query = `&sort_by=${sortBy}&include_adult=true&with_release_type=${THEATRICAL_RELEASE_TYPE}`;
 
-  handleErrors(response);
-  let res = await response.json();
+	if(filterOptions.languageCode !== undefined){
+		query += `&language=${filterOptions.languageCode}`;
+	}
 
-  totalPages.set(res.total_pages);
+	if(filterOptions.countryCode !== undefined){
+		query += `&region=${filterOptions.countryCode}`;
+	}
 
-  return res;
+	if(filterOptions.page !== undefined){
+		query += `&page=${filterOptions.page}`;
+	}
+
+	if(filterOptions.releaseDateFrom !== undefined){
+		query += `&release_date.gte=${filterOptions.releaseDateFrom}`;
+	}
+
+	 if(filterOptions.releaseDateTo !== undefined){
+		query += `&release_date.lte=${filterOptions.releaseDateTo}`;
+	}
+
+	if(filterOptions.minRating !== undefined){
+		query += `&vote_average.gte=${filterOptions.minRating}`;
+	}
+
+	if(filterOptions.maxRating !== undefined){
+		query += `&vote_average.lte=${filterOptions.maxRating}`;
+	}
+
+	if(filterOptions.minVotes !== undefined){
+		query += `&vote_count.gte=${filterOptions.minVotes}`;
+	}
+
+	if(filterOptions.maxVotes !== undefined){
+		query += `&vote_count.lte=${filterOptions.maxVotes}`;
+	}
+
+	if(filterOptions.minDuration !== undefined){
+		query += `&with_runtime.gte=${filterOptions.minDuration}`;
+	}
+
+	if(filterOptions.maxDuration !== undefined){
+		query += `&with_runtime.lte=${filterOptions.maxDuration}`;
+	}
+
+	return query;
 }
 
 function handleErrors(response) {
@@ -46,7 +81,7 @@ function handleErrors(response) {
   }
 }
 
-export async function fetchMovieDetailed(movieId, languageCode) {
+export async function fetchMovieDetailed(movieId, languageCode = "en-US") {
   let response = await fetch(
     `${BASE_URL}movie/${movieId}?api_key=${
       import.meta.env.VITE_API_KEY
@@ -57,22 +92,28 @@ export async function fetchMovieDetailed(movieId, languageCode) {
   return response.json();
 }
 
-export async function fetchLatestMovieDetailed(
-  languageCode,
-  countryCode,
-  page = 1
-) {
+export async function fetchMoviesDetailed(sortBy ="vote_average.desc", filterOptions = { page: 1}){
   let fetchMoviePromises = [];
+	let countryCode = filterOptions.countryCode || "IE"; // Ireland
 
-  let basicMovies = await fetchLatestMovies(languageCode, countryCode, page);
+  let basicMovies = await fetchMovies(sortBy, filterOptions);
 
   basicMovies.results.forEach((movie) => {
-    let moviePromise = fetchMovieDetailed(movie.id, languageCode);
+		let moviePromise;
+
+		if(filterOptions.languageCode){
+			 moviePromise = fetchMovieDetailed(movie.id, filterOptions.languageCode);
+		}
+    else{
+			fetchMovieDetailed(movie.id);
+		}
+
     fetchMoviePromises.push(moviePromise);
   });
 
-  let results = await Promise.all(fetchMoviePromises);
-  let certifiedResults = processCountryCertification(results, countryCode);
+  let detailedMovies = await Promise.all(fetchMoviePromises);
+
+  let certifiedResults = processCountryCertification(detailedMovies, countryCode);
   return certifiedResults;
 }
 

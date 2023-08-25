@@ -4,6 +4,7 @@
 	const baseImageUrl = "https://image.tmdb.org/t/p/w500";
 
 	export let movies = [];
+	export let country;
 
 	function formatBackgroundImage(path) {
 		if (path !== null) {
@@ -47,6 +48,25 @@
 		}
 		return actors;
 	}
+
+	function getReleaseDate(movie) {
+		let releaseDate = Date.now();
+		const THEATRICAL_RELEASE_TYPE = 3;
+
+		const foundCountryDates = movie.release_dates.results.find(
+			(item) => item.iso_3166_1 === country
+		);
+
+		if (foundCountryDates !== undefined) {
+			const foundDateObj = foundCountryDates.release_dates.find(
+				(item) => item.type === THEATRICAL_RELEASE_TYPE
+			);
+
+			releaseDate = foundDateObj.release_date;
+		}
+
+		return releaseDate;
+	}
 </script>
 
 <ul class="movieList">
@@ -59,7 +79,7 @@
 				rating={movie.vote_average}
 				certification={movie.certification}
 				ratingCount={movie.vote_count}
-				releaseDate={movie.release_date}
+				releaseDate={getReleaseDate(movie)}
 				genres={movie.genres}
 				runtime={movie.runtime}
 				tagline={movie.tagline}
