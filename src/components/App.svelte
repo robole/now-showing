@@ -83,6 +83,35 @@
 		}
 	}
 
+	async function handleOpenSettings() {
+		$showSettings = true;
+
+		if ($languages.length === 0) {
+			try {
+				let unsortedLanguages = await fetchLanguages();
+				let unsortedCountries = await fetchCountries();
+				$languages = sort(unsortedLanguages, "english_name", "asc");
+				$countries = sort(unsortedCountries, "english_name", "asc");
+			} catch (error) {
+				$errorMessage = error.message;
+				$showError = true;
+			}
+		}
+	}
+
+	async function handleSaveSettings(event) {
+		resetMovieList();
+
+		$selectedLanguageCode = event.detail.selectedLanguageCode;
+		$selectedCountryCode = event.detail.selectedCountryCode;
+
+		await showNextPage();
+	}
+
+	function handleCloseSettings() {
+		$showSettings = false;
+	}
+
 	async function handleSort(event) {
 		resetMovieList();
 
@@ -112,14 +141,8 @@
 	}
 
 	onMount(async () => {
-		// It could be left to the Header component to get this data,
-		// however the UI is more responsive if we get the data ahead of time.
 		try {
 			await showNextPage();
-			let unsortedLanguages = await fetchLanguages();
-			let unsortedCountries = await fetchCountries();
-			$languages = sort(unsortedLanguages, "english_name", "asc");
-			$countries = sort(unsortedCountries, "english_name", "asc");
 		} catch (error) {
 			$errorMessage = error.message;
 			$showError = true;
@@ -127,7 +150,11 @@
 	});
 </script>
 
-<Header />
+<Header
+	selectedLanguageCode={$selectedLanguageCode}
+	selectedCountryCode={$selectedCountryCode}
+	on:openSettings={() => handleOpenSettings()}
+/>
 
 <main inert={$showVideoPlayer || $showSettings || $showError}>
 	<MovieListSort on:sort={(event) => handleSort(event)} />
@@ -170,7 +197,14 @@
 {/if}
 
 {#if $showSettings}
-	<Settings />
+	<Settings
+		selectedLanguageCode={$selectedLanguageCode}
+		selectedCountryCode={$selectedCountryCode}
+		countries={$countries}
+		languages={$languages}
+		on:saveSettings={(event) => handleSaveSettings(event)}
+		on:closeSettings={handleCloseSettings}
+	/>
 {/if}
 
 {#if $showError}

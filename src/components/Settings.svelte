@@ -1,31 +1,16 @@
 <script>
-	import {
-		latestMovies,
-		showSettings,
-		selectedLanguageCode,
-		languages,
-		selectedCountryCode,
-		countries,
-		sortBy,
-		numOfPagesShown,
-		minRating,
-		minDuration,
-		minVotes,
-		fromDate,
-		maxRating,
-		maxDuration,
-		maxVotes,
-		toDate,
-		loading,
-	} from "../store";
-
-	import { fetchMoviesDetailed } from "../scripts/tmdb";
 	import { onMount } from "svelte";
+	import { createEventDispatcher } from "svelte";
+	import Spinner from "./Spinner.svelte";
+
+	export let selectedLanguageCode;
+	export let selectedCountryCode;
+	export let countries;
+	export let languages;
 
 	let dialog;
-	let languageCode = $selectedLanguageCode;
-	let countryCode = $selectedCountryCode;
 	let dirty = false;
+	const dispatch = createEventDispatcher();
 
 	onMount(() => {
 		dialog.showModal();
@@ -37,37 +22,13 @@
 
 	function close() {
 		dialog.close();
-		$showSettings = false;
+		dispatch("closeSettings");
 	}
 
 	async function save() {
 		if (dirty) {
-			$latestMovies = [];
-			$loading = true;
-
-			$selectedLanguageCode = languageCode;
-			$selectedCountryCode = countryCode;
-
+			dispatch("saveSettings", { selectedLanguageCode, selectedCountryCode });
 			close();
-
-			$numOfPagesShown = 1;
-
-			let movies = await fetchMoviesDetailed($sortBy, {
-				languageCode: $selectedLanguageCode,
-				countryCode: $selectedCountryCode,
-				page: $numOfPagesShown,
-				minRating: $minRating,
-				maxRating: $maxRating,
-				minVotes: $minVotes,
-				maxVotes: $maxVotes,
-				minDuration: $minDuration,
-				maxDuration: $maxDuration,
-				releaseDateFrom: $fromDate,
-				releaseDateTo: $toDate,
-			});
-
-			$latestMovies = movies;
-			$loading = false;
 		}
 	}
 
@@ -81,30 +42,36 @@
 <div class="bg modalBackground" on:click|self={close} on:keyup={handleKeyup}>
 	<dialog aria-labelledby="settingsTitle" use:initDialog on:keyup={handleKeyup}>
 		<h2 id="settingsTitle">Regional settings</h2>
-		<label for="languageSetting">Language</label>
-		<select
-			id="languageSetting"
-			bind:value={languageCode}
-			on:change={() => (dirty = true)}
-		>
-			{#each $languages as l}
-				<option value={l.iso_639_1} selected={l.iso_639_1 === languageCode}
-					>{l.english_name}</option
-				>
-			{/each}
-		</select>
-		<label for="countrySetting">Country</label>
-		<select
-			id="countrySetting"
-			bind:value={countryCode}
-			on:change={() => (dirty = true)}
-		>
-			{#each $countries as c}
-				<option value={c.iso_3166_1}>{c.english_name}</option>
-			{/each}
-		</select>
-		<button type="button" on:click={save}>Save</button>
-		<button on:click={close}>Cancel</button>
+		{#if languages.length === 0}
+			<Spinner />
+		{:else}
+			<label for="languageSetting">Language</label>
+			<select
+				id="languageSetting"
+				bind:value={selectedLanguageCode}
+				on:change={() => (dirty = true)}
+			>
+				{#each languages as language}
+					<option
+						value={language.iso_639_1}
+						selected={language.iso_639_1 === selectedLanguageCode}
+						>{language.english_name}</option
+					>
+				{/each}
+			</select>
+			<label for="countrySetting">Country</label>
+			<select
+				id="countrySetting"
+				bind:value={selectedCountryCode}
+				on:change={() => (dirty = true)}
+			>
+				{#each countries as country}
+					<option value={country.iso_3166_1}>{country.english_name}</option>
+				{/each}
+			</select>
+			<button type="button" on:click={save}>Save</button>
+			<button on:click={close}>Cancel</button>
+		{/if}
 	</dialog>
 </div>
 
@@ -129,6 +96,10 @@
 
 		background-color: white;
 		row-gap: 1rem;
+	}
+
+	:global(.spinner) {
+		place-self: center;
 	}
 
 	h2 {
