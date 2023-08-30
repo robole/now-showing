@@ -20,7 +20,7 @@ describe("sort", () => {
   ];
 
   test("should sort movies by release date with the most recent first (descending order)", () => {
-    let sorted = sortMovies(movies, "release_date", "desc");
+    let sorted = sortMovies(movies, "release_date.desc");
 
     expect(sorted[0].title).toEqual("The Many Saints of Newark");
     expect(sorted[1].title).toEqual("Dune");
@@ -30,7 +30,7 @@ describe("sort", () => {
   });
 
 	test("should sort movies by release date with the least recent first (ascending order)", () => {
-    let sorted = sortMovies(movies, "release_date", "asc");
+    let sorted = sortMovies(movies, "release_date.asc");
 
 		expect(sorted[0].title).toEqual(
       "Shang-Chi and the Legend of the Ten Rings"
@@ -41,7 +41,7 @@ describe("sort", () => {
   });
 
   test("should sort movies by runtime with the longest first (descending order)", () => {
-    let sorted = sortMovies(movies, "runtime", "desc");
+    let sorted = sortMovies(movies, "runtime.desc");
 
     expect(sorted[0].title).toEqual("Dune");
     expect(sorted[1].title).toEqual(
@@ -51,7 +51,7 @@ describe("sort", () => {
   });
 
 	test("should sort movies by runtime with the shortest first (ascending order)", () => {
-    let sorted = sortMovies(movies, "runtime", "asc");
+    let sorted = sortMovies(movies, "runtime.asc");
 
 		expect(sorted[0].title).toEqual("The Many Saints of Newark");
     expect(sorted[1].title).toEqual(

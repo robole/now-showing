@@ -5,7 +5,7 @@ import Header from "../../../src/components/Header.svelte";
 
 describe("Header", () => {
   test("should show a settings button", () => {
-    render(Header);
+    render(Header, {selectedLanguageCode : "EN", selectedCountryCode : "IE"});
 
     const button = screen.getByRole("button", {
       name: "Country and language settings",

@@ -33,8 +33,7 @@ describe("App", () => {
     expect(button).toBeInTheDocument();
     await fireEvent.click(button);
 
-    expect(screen.getByLabelText("Language")).toBeInTheDocument();
-    expect(screen.getByLabelText("Country")).toBeInTheDocument();
+		expect(screen.getByText("Regional settings")).toBeInTheDocument();
   });
 
   // Need to mock fetch to get this to work
