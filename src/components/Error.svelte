@@ -1,10 +1,11 @@
 <script>
-	import { showError } from "../store";
+	import { createEventDispatcher } from "svelte";
 	import { onMount } from "svelte";
 
 	export let message = "Uh oh! Something went wrong!";
 
 	let dialog;
+	const dispatch = createEventDispatcher();
 
 	onMount(() => {
 		dialog.showModal();
@@ -16,7 +17,7 @@
 
 	function close() {
 		dialog.close();
-		$showError = false;
+		dispatch("closeErrorDialog");
 	}
 
 	async function handleKeyup(e) {

@@ -4,6 +4,7 @@
 		showVideoPlayer,
 		showSettings,
 		showError,
+		modalShown,
 		selectedLanguageCode,
 		selectedCountryCode,
 		selectedMovieTrailers,
@@ -135,6 +136,19 @@
 		await showNextPage();
 	}
 
+	async function handleShowTrailer(event) {
+		$selectedMovieTrailers = event.detail.trailers;
+		$showVideoPlayer = true;
+	}
+
+	function handleCloseVideoPlayer() {
+		$showVideoPlayer = false;
+	}
+
+	function handleCloseErrorDialog() {
+		$showError = false;
+	}
+
 	function resetMovieList() {
 		$numOfPagesShown = 0;
 		$latestMovies = [];
@@ -153,10 +167,11 @@
 <Header
 	selectedLanguageCode={$selectedLanguageCode}
 	selectedCountryCode={$selectedCountryCode}
+	modalShown={$modalShown}
 	on:openSettings={() => handleOpenSettings()}
 />
 
-<main inert={$showVideoPlayer || $showSettings || $showError}>
+<main inert={$modalShown}>
 	<MovieListSort on:sort={(event) => handleSort(event)} />
 	<MovieListFilter
 		minRating={$minRating}
@@ -171,7 +186,11 @@
 	/>
 
 	{#if $latestMovies.length > 0}
-		<MovieList movies={$latestMovies} country={$selectedCountryCode} />
+		<MovieList
+			movies={$latestMovies}
+			country={$selectedCountryCode}
+			on:showTrailer={(event) => handleShowTrailer(event)}
+		/>
 	{:else if $latestMovies.length === 0 && $loading === false}
 		<h2>No movies found!</h2>
 		<img
@@ -193,7 +212,10 @@
 </main>
 
 {#if $showVideoPlayer}
-	<VideoPlayer videos={$selectedMovieTrailers} />
+	<VideoPlayer
+		videos={$selectedMovieTrailers}
+		on:closeVideoPlayer={() => handleCloseVideoPlayer()}
+	/>
 {/if}
 
 {#if $showSettings}
@@ -208,10 +230,10 @@
 {/if}
 
 {#if $showError}
-	<Error message={$errorMessage} />
+	<Error message={$errorMessage} on:closeErrorDialog={handleCloseErrorDialog} />
 {/if}
 
-<Footer />
+<Footer {modalShown} />
 
 <style>
 	main {

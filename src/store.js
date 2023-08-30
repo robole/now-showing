@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { writable, derived } from "svelte/store";
 import dayjs from "dayjs";
 
 export let loading = writable(true);
@@ -25,6 +25,7 @@ export let toDate = writable(dayjs(Date.now()).format("YYYY-MM-DD"));
 export let showVideoPlayer = writable(false);
 export let showError = writable(false);
 export let showSettings = writable(false);
+export let modalShown = derived([showVideoPlayer, showError, showSettings], ([$showVideoPlayer, $showError, $showSettings]) => $showVideoPlayer || $showError || $showSettings)
 
 // error dialog
 export let errorMessage = writable("");

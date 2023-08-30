@@ -1,8 +1,8 @@
 <script>
-	import { showVideoPlayer, showSettings, showError } from "../store";
+	export let modalShown = false;
 </script>
 
-<footer inert={$showVideoPlayer || $showSettings || $showError}>
+<footer inert={modalShown}>
 	<p>
 		This product uses the <a
 			href="https://developers.themoviedb.org/3/getting-started/introduction"

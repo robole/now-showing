@@ -1,5 +1,5 @@
 <script>
-	import { selectedMovieTrailers, showVideoPlayer } from "../store";
+	import { createEventDispatcher } from "svelte";
 	import { fade } from "svelte/transition";
 	import { truncate } from "../scripts/format";
 
@@ -16,6 +16,8 @@
 	export let trailers = [];
 	export let directors = [];
 	export let actors = [];
+
+	const dispatch = createEventDispatcher();
 
 	// if you want to link to tmdb page
 	// const tmdbUrl = `https://www.themoviedb.org/movie/${id}`;
@@ -66,8 +68,7 @@
 	}
 
 	async function showTrailer() {
-		$selectedMovieTrailers = trailers;
-		$showVideoPlayer = true;
+		dispatch("showTrailer", { trailers });
 	}
 </script>
 

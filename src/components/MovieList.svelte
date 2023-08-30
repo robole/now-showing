@@ -66,6 +66,7 @@
 				trailers={getTrailers(movie)}
 				directors={getDirectors(movie)}
 				actors={getStarringActors(movie)}
+				on:showTrailer
 			/>
 		{/if}
 	{/each}

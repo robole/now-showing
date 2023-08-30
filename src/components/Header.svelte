@@ -1,9 +1,9 @@
 <script>
-	import { showVideoPlayer, showSettings, showError } from "../store";
 	import { createEventDispatcher } from "svelte";
 
 	export let selectedLanguageCode;
 	export let selectedCountryCode;
+	export let modalShown = false;
 
 	const dispatch = createEventDispatcher();
 
@@ -12,7 +12,7 @@
 	}
 </script>
 
-<header inert={$showVideoPlayer || $showSettings || $showError}>
+<header inert={modalShown}>
 	<div class="controls">
 		<button on:click={handleClick} aria-label="Country and language settings"
 			><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

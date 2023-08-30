@@ -1,5 +1,5 @@
 <script>
-	import { showVideoPlayer } from "../store";
+	import { createEventDispatcher } from "svelte";
 	import { onMount } from "svelte";
 	import YoutubePlayer from "youtube-player";
 	import Spinner from "./Spinner.svelte";
@@ -34,6 +34,8 @@
 	let activity = false;
 	let activityTimeout;
 	let currentTimeInterval;
+
+	const dispatch = createEventDispatcher();
 
 	onMount(async () => {
 		dialog.showModal();
@@ -143,8 +145,8 @@
 
 	function close() {
 		dialog.close();
-		$showVideoPlayer = false;
 		stopCurrentTimeRunning();
+		dispatch("closeVideoPlayer");
 	}
 
 	function nextVideo() {
