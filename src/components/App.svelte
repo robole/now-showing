@@ -9,8 +9,7 @@
 		selectedMovieTrailers,
 		languages,
 		countries,
-		sortField,
-		sortOrder,
+		sortBy,
 		totalPages,
 		numOfPagesShown,
 		loading,
@@ -29,7 +28,7 @@
 		fetchLanguages,
 		fetchCountries,
 	} from "../scripts/tmdb";
-	import { sortMovies, sort } from "../scripts/sort";
+	import { sort, sortMovies } from "../scripts/sort";
 
 	import Header from "./Header.svelte";
 	import SkeletonMovieList from "./SkeletonMovieList.svelte";
@@ -43,16 +42,14 @@
 
 	import { onMount } from "svelte";
 
-	getLatestMovies();
-
-	async function getLatestMovies() {
-		$loading = true;
+	async function getLatestMovies(pageNum) {
+		let movies = [];
 
 		try {
-			let movies = await fetchMoviesDetailed(`${$sortField}.${$sortOrder}`, {
+			movies = await fetchMoviesDetailed($sortBy, {
 				languageCode: $selectedLanguageCode,
 				countryCode: $selectedCountryCode,
-				page: $numOfPagesShown,
+				page: pageNum,
 				minRating: $minRating,
 				maxRating: $maxRating,
 				minVotes: $minVotes,
@@ -62,53 +59,63 @@
 				releaseDateFrom: $fromDate,
 				releaseDateTo: $toDate,
 			});
-
-			$latestMovies = movies;
 		} catch (error) {
 			$errorMessage = error.message;
 			$showError = true;
 		}
 
-		$loading = false;
+		return movies;
 	}
 
 	async function showNextPage() {
 		if ($numOfPagesShown < $totalPages) {
-			$numOfPagesShown += 1;
 			$loading = true;
+			$numOfPagesShown += 1;
 
-			let movies = [];
-
-			try {
-				movies = await fetchMoviesDetailed(`${$sortField}.${$sortOrder}`, {
-					languageCode: $selectedLanguageCode,
-					countryCode: $selectedCountryCode,
-					page: $numOfPagesShown,
-					minRating: $minRating,
-					maxRating: $maxRating,
-					minVotes: $minVotes,
-					maxVotes: $maxVotes,
-					minDuration: $minDuration,
-					maxDuration: $maxDuration,
-					releaseDateFrom: $fromDate,
-					releaseDateTo: $toDate,
-				});
-			} catch (error) {
-				$errorMessage = error.message;
-				$showError = true;
-			}
+			let movies = await getLatestMovies($numOfPagesShown);
 
 			let allMovies = [...$latestMovies, ...movies];
-			let sortedMovies = sortMovies(allMovies, $sortField);
+
+			let sortedMovies = sortMovies(allMovies, $sortBy);
 			$latestMovies = sortedMovies;
+
 			$loading = false;
 		}
+	}
+
+	async function handleSort(event) {
+		resetMovieList();
+
+		$sortBy = event.detail.value;
+
+		await showNextPage();
+	}
+
+	async function handleFilter(event) {
+		resetMovieList();
+
+		$minRating = event.detail.minRating;
+		$maxRating = event.detail.maxRating;
+		$minVotes = event.detail.minVotes;
+		$maxVotes = event.detail.maxVotes;
+		$minDuration = event.detail.minDuration;
+		$maxDuration = event.detail.maxDuration;
+		$fromDate = event.detail.fromDate;
+		$toDate = event.detail.toDate;
+
+		await showNextPage();
+	}
+
+	function resetMovieList() {
+		$numOfPagesShown = 0;
+		$latestMovies = [];
 	}
 
 	onMount(async () => {
 		// It could be left to the Header component to get this data,
 		// however the UI is more responsive if we get the data ahead of time.
 		try {
+			await showNextPage();
 			let unsortedLanguages = await fetchLanguages();
 			let unsortedCountries = await fetchCountries();
 			$languages = sort(unsortedLanguages, "english_name", "asc");
@@ -123,7 +130,7 @@
 <Header />
 
 <main inert={$showVideoPlayer || $showSettings || $showError}>
-	<MovieListSort />
+	<MovieListSort on:sort={(event) => handleSort(event)} />
 	<MovieListFilter
 		minRating={$minRating}
 		maxRating={$maxRating}
@@ -133,6 +140,7 @@
 		maxDuration={$maxDuration}
 		fromDate={$fromDate}
 		toDate={$toDate}
+		on:filter={(event) => handleFilter(event)}
 	/>
 
 	{#if $latestMovies.length > 0}

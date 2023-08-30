@@ -1,7 +1,9 @@
 // API reference: https://developers.themoviedb.org/3/getting-started/introduction
 import { totalPages } from "../store";
+import { sort } from "./sort";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
+const THEATRICAL_RELEASE__DATE_TYPE = 3;
 
 export async function fetchMovies(sortBy ="vote_average.desc", filterOptions = { page: 1}){
 	let queryString = getQueryString(sortBy, filterOptions);
@@ -19,8 +21,7 @@ export async function fetchMovies(sortBy ="vote_average.desc", filterOptions = {
 }
 
 function getQueryString(sortBy, filterOptions){
-	const THEATRICAL_RELEASE_TYPE = 3;
-	let query = `&sort_by=${sortBy}&include_adult=true&with_release_type=${THEATRICAL_RELEASE_TYPE}`;
+	let query = `&sort_by=${sortBy}&include_adult=true&with_release_type=${THEATRICAL_RELEASE__DATE_TYPE}`;
 
 	if(filterOptions.languageCode !== undefined){
 		query += `&language=${filterOptions.languageCode}`;
@@ -113,30 +114,33 @@ export async function fetchMoviesDetailed(sortBy ="vote_average.desc", filterOpt
 
   let detailedMovies = await Promise.all(fetchMoviePromises);
 
-  let certifiedResults = processCountryCertification(detailedMovies, countryCode);
-  return certifiedResults;
+  let detailedMoviesByCountry = processCountryDetails(detailedMovies, countryCode);
+
+	// need to sort again because promises unsorts movies
+	let sortedMovies = sort(detailedMoviesByCountry, sortBy);
+  return sortedMovies;
 }
 
-function processCountryCertification(movies, countryCode) {
+/* Update movie with country-specific release date and certification */
+function processCountryDetails(movies, countryCode) {
   let updatedMovies = movies.map((movie) => {
     let releaseDatesObj = movie.release_dates.results.find(
       (item) => item.iso_3166_1 === countryCode
     );
 
-    let releaseDate;
+    let countryReleaseDateObj;
 
-    /* Only "theatrical" type (3) is considered. It is prob best to exclude
-		 "Theatrical (limited)" type (2) altogether */
     if (releaseDatesObj) {
-      releaseDate = releaseDatesObj.release_dates.find(
-        (item) => item.type === 3 && item.certification !== ""
+      countryReleaseDateObj = releaseDatesObj.release_dates.find(
+        (item) => item.type === THEATRICAL_RELEASE__DATE_TYPE
       );
     }
 
     let updatedMovie = movie;
 
-    if (releaseDate) {
-      updatedMovie = { ...movie, certification: releaseDate.certification };
+    if (countryReleaseDateObj) {
+			updatedMovie.release_date = countryReleaseDateObj.release_date;
+      updatedMovie.certification = countryReleaseDateObj.certification ;
     }
 
     return updatedMovie;

@@ -5,12 +5,11 @@ export let loading = writable(true);
 export let latestMovies = writable([]);
 export let selectedMovieTrailers = writable([]);
 
-export let numOfPagesShown = writable(1);
+export let numOfPagesShown = writable(0);
 export let totalPages = writable(1);
 
 // sorting
-export let sortField = writable("vote_average");
-export let sortOrder = writable("desc");
+export let sortBy = writable("vote_average.desc");
 
 // filters
 export let minRating = writable(0);

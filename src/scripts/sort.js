@@ -1,11 +1,16 @@
 /**
 * Sort the array of movies provided by the field provided.
-* @param {array} array - The array.
-* @param {string} field - The field to sort by.
-* @param {string} [order="desc"] - The order to sort by. It can be ascending ('asc') or descending ('desc') order.
+* @param {array} array - The array of movies.
+* @param {string} sortBy - The field to sort by. It is the form of: 
+	`<sort_field>.<sort_order_abbreviation>` e.g. 'vote_average.asc' where the field is `vote_average` 
+	and the sort order is ascending. Valid values for sort_order_abbreviation are: `asc` and `desc`.
 * @return {array} A sorted array.
 */
-export function sortMovies(array, field, order = "desc") {
+export function sortMovies(array, sortBy) {
+	let parts = sortBy.split(".");
+	let field = parts[0];
+	let order = parts[1];
+
 	if (field === "release_date") {
     return sortMoviesByReleaseDate(array, order);
   }
@@ -29,7 +34,7 @@ function sortMoviesByReleaseDate(array, order = "desc") {
 	return sorted;
 }
 
-export function sort(array, field, order = "desc") {
+export function sort(array, field, order) {
   return array.sort(compareValues(field, order));
 }
 

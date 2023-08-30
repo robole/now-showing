@@ -6,8 +6,7 @@
 		languages,
 		selectedCountryCode,
 		countries,
-		sortField,
-		sortOrder,
+		sortBy,
 		numOfPagesShown,
 		minRating,
 		minDuration,
@@ -53,7 +52,7 @@
 
 			$numOfPagesShown = 1;
 
-			let movies = await fetchMoviesDetailed(`${$sortField}.${$sortOrder}`, {
+			let movies = await fetchMoviesDetailed($sortBy, {
 				languageCode: $selectedLanguageCode,
 				countryCode: $selectedCountryCode,
 				page: $numOfPagesShown,
