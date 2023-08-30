@@ -168,11 +168,11 @@
 	selectedLanguageCode={$selectedLanguageCode}
 	selectedCountryCode={$selectedCountryCode}
 	modalShown={$modalShown}
-	on:openSettings={() => handleOpenSettings()}
+	on:openSettings={handleOpenSettings}
 />
 
 <main inert={$modalShown}>
-	<MovieListSort on:sort={(event) => handleSort(event)} />
+	<MovieListSort on:sort={handleSort} />
 	<MovieListFilter
 		minRating={$minRating}
 		maxRating={$maxRating}
@@ -182,14 +182,14 @@
 		maxDuration={$maxDuration}
 		fromDate={$fromDate}
 		toDate={$toDate}
-		on:filter={(event) => handleFilter(event)}
+		on:filter={handleFilter}
 	/>
 
 	{#if $latestMovies.length > 0}
 		<MovieList
 			movies={$latestMovies}
 			country={$selectedCountryCode}
-			on:showTrailer={(event) => handleShowTrailer(event)}
+			on:showTrailer={handleShowTrailer}
 		/>
 	{:else if $latestMovies.length === 0 && $loading === false}
 		<h2>No movies found!</h2>
@@ -214,7 +214,7 @@
 {#if $showVideoPlayer}
 	<VideoPlayer
 		videos={$selectedMovieTrailers}
-		on:closeVideoPlayer={() => handleCloseVideoPlayer()}
+		on:closeVideoPlayer={handleCloseVideoPlayer}
 	/>
 {/if}
 
@@ -224,7 +224,7 @@
 		selectedCountryCode={$selectedCountryCode}
 		countries={$countries}
 		languages={$languages}
-		on:saveSettings={(event) => handleSaveSettings(event)}
+		on:saveSettings={handleSaveSettings}
 		on:closeSettings={handleCloseSettings}
 	/>
 {/if}
