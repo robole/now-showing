@@ -2,7 +2,6 @@
 
 ## Improvements
 
-1. Review instances of language string. Is it "en-US" versus "en"?
 1. Extract controls out of VideoPlayer as separate component?
 1. Review local filter in MovieListFilter. Just remove? Or only use when one page of results is returned and list is reduced.
 1. Prevent scrolling when dialog is visible - `overscroll-behavior` does not work as expected!

@@ -24,7 +24,7 @@ function getQueryString(sortBy, filterOptions){
 	let query = `&sort_by=${sortBy}&include_adult=true&with_release_type=${THEATRICAL_RELEASE__DATE_TYPE}`;
 
 	if(filterOptions.languageCode !== undefined){
-		query += `&language=${filterOptions.languageCode}`;
+		query += `&language=${filterOptions.languageCode}-${filterOptions.countryCode}`;
 	}
 
 	if(filterOptions.countryCode !== undefined){
@@ -103,7 +103,7 @@ export async function fetchMoviesDetailed(sortBy ="vote_average.desc", filterOpt
 		let moviePromise;
 
 		if(filterOptions.languageCode){
-			 moviePromise = fetchMovieDetailed(movie.id, filterOptions.languageCode);
+			 moviePromise = fetchMovieDetailed(movie.id, `${filterOptions.languageCode}-${filterOptions.countryCode}`);
 		}
     else{
 			fetchMovieDetailed(movie.id);
