@@ -81,10 +81,10 @@ To build the project, you can run `npm run build` and the generated files will b
 
 ## Gratitude
 
-**If you find this project helpful, please star the repo. 🌟**
-
-You can [sponsor me or buy me a coffee on ko-fi](https://ko-fi.com/roboleary). 💸🌈
+If you find this project helpful, you can:
+1. [Sponsor me or buy me a coffee on ko-fi](https://ko-fi.com/roboleary). 💸🌈
+1. Star the repo to help others find it. 🌟
 
 ## Notes on API
 
-1. It is preferable to provide a value in the form of `<language>-<country>` for the `language` query param because it provides more localized results. Endpoints will accept a language code for the `language` query param, for example `PT` for portugese. For example, "pt-BR" gives Brazilian Portuguese results which has alternative details such as a title of Megatubarão 2 instead of Meg 2. See [docs for language reference](https://developer.themoviedb.org/docs/languages) for more info.
+1. It is preferable to provide a value in the form of `<language>-<country>` for the `language` query param because it provides more localized results. For example, `pt-BR` gives Brazilian Portuguese results which has alternative data to Portuguese results such as a title of Megatubarão 2 instead of Meg 2. See [docs for language reference](https://developer.themoviedb.org/docs/languages) for more info.

@@ -1,8 +1,6 @@
 <script>
 	import { createEventDispatcher } from "svelte";
-	import { truncate } from "../scripts/format";
 	import { onMount } from "svelte";
-	import dayjs from "dayjs";
 
 	let expanded = false;
 	let dirty = false;
@@ -86,74 +84,6 @@
 			filter = false;
 		}
 	}
-
-	// function applyLocalFilter() {
-	// let filteredMovies;
-	// if ($totalPages === 1) {
-	// 	filteredMovies = $latestMovies.map((movie) => {
-	// 		if (
-	// 			filterByRating(movie) ||
-	// 			filterByRuntime(movie) ||
-	// 			filterByVotes(movie) ||
-	// 			filterByReleaseDate(movie)
-	// 		) {
-	// 			movie.show = false;
-	// 		} else {
-	// 			movie.show = true;
-	// 		}
-	// 		return movie;
-	// 	});
-	// 	$latestMovies = filteredMovies;
-	// }
-	// }
-
-	// function filterByRating(movie) {
-	// 	let filtered = true;
-	// 	let rating = truncate(movie.vote_average);
-
-	// 	if (rating >= minRating && rating <= maxRating) {
-	// 		filtered = false;
-	// 	}
-
-	// 	return filtered;
-	// }
-
-	// function filterByVotes(movie) {
-	// 	let filtered = true;
-	// 	let votes = movie.vote_count;
-
-	// 	if (votes >= minVotes && votes <= maxVotes) {
-	// 		filtered = false;
-	// 	}
-
-	// 	return filtered;
-	// }
-
-	// function filterByRuntime(movie) {
-	// 	let filtered = true;
-	// 	let { runtime } = movie;
-
-	// 	if (runtime >= minDuration && runtime <= maxDuration) {
-	// 		filtered = false;
-	// 	}
-
-	// 	return filtered;
-	// }
-
-	// function filterByReleaseDate(movie) {
-	// 	let filtered = true;
-	// 	let releaseDate = dayjs(movie.release_date);
-
-	// 	if (
-	// 		(releaseDate.isAfter(dayjs(fromDate)) ||
-	// 			releaseDate.isSame(dayjs(fromDate))) &&
-	// 		(releaseDate.isBefore(dayjs(toDate)) || releaseDate.isSame(dayjs(toDate)))
-	// 	) {
-	// 		filtered = false;
-	// 	}
-
-	// 	return filtered;
-	// }
 </script>
 
 <button

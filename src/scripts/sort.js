@@ -18,6 +18,17 @@ export function sortMovies(array, sortBy) {
   return sort(array, field, order);
 }
 
+/**
+* Sort an array in a particular order.
+* @param {array} array - The array to sort.
+* @param {string} field - The field to sort by.
+* @param {string} order - The order to sort by. Values can be: `asc` and `desc`.
+* @return {array} A sorted array.
+*/
+export function sort(array, field, order) {
+  return array.sort(compareValues(field, order));
+}
+
 function sortMoviesByReleaseDate(array, order = "desc") {
 	let sorted;
 
@@ -32,10 +43,6 @@ function sortMoviesByReleaseDate(array, order = "desc") {
 	}
 
 	return sorted;
-}
-
-export function sort(array, field, order) {
-  return array.sort(compareValues(field, order));
 }
 
 function compareValues(key, order = "desc") {

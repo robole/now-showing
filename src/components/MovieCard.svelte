@@ -33,7 +33,7 @@
 	}
 
 	function formatRating(num) {
-		return truncate(num).toFixed(1);
+		return truncate(num, 1);
 	}
 
 	function formatCertification(value) {

@@ -5,8 +5,18 @@ import { sort } from "./sort";
 const BASE_URL = "https://api.themoviedb.org/3/";
 const THEATRICAL_RELEASE__DATE_TYPE = 3;
 
+/**
+* Fetch the latest movies from TMDB.
+* @param {string} sortBy - The field to sort by. It is the form of: 
+	`<sort_field>.<sort_order_abbreviation>` e.g. 'vote_average.asc' where the field is `vote_average` 
+	and the sort order is ascending. Valid values for sort_order_abbreviation are: `asc` and `desc`.
+* @param {object} filterOptions - An object containing fields to filter the results by. The fields include:
+* `languageCode`, `countryCode`, `page`, `releaseDateFrom`, `releaseDateTo`, `minRating`, `maxRating`, 
+* `minVotes`, `maxVotes`, `minDuration`, `maxDuration`.
+* @return {array} An array of movies.
+*/
 export async function fetchMovies(sortBy ="vote_average.desc", filterOptions = { page: 1}){
-	let queryString = getQueryString(sortBy, filterOptions);
+	let queryString = buildQueryString(sortBy, filterOptions);
 	
 	let response = await fetch(
     `${BASE_URL}discover/movie?api_key=${
@@ -20,7 +30,10 @@ export async function fetchMovies(sortBy ="vote_average.desc", filterOptions = {
   return res;
 }
 
-function getQueryString(sortBy, filterOptions){
+/**
+ * Build the query string based on the sort and filter options provided for any of the TMDB endpoints.
+ */
+function buildQueryString(sortBy, filterOptions){
 	let query = `&sort_by=${sortBy}&include_adult=true&with_release_type=${THEATRICAL_RELEASE__DATE_TYPE}`;
 
 	if(filterOptions.languageCode !== undefined){
@@ -73,7 +86,7 @@ function getQueryString(sortBy, filterOptions){
 function handleErrors(response) {
   if (response.status === 404) {
     throw Error(
-      "We have changed something and we shouldn't have had! Please let us know!"
+      "We have changed an endpoint and we shouldn't have had! Please let us know!"
     );
   } else if (!response.ok) {
     throw Error(
@@ -82,7 +95,15 @@ function handleErrors(response) {
   }
 }
 
-export async function fetchMovieDetailed(movieId, languageCode = "en-US") {
+/**
+* Fetch a movie with provided ID and language code from TMDB. It includes details: release dates based on
+* the country, trailers (videos), and credits.
+* @param {string} movieId - The ID of the movie in TMDB.
+* @param {string} languageCode - The language code in ISO 3166-1 format you want the results to be provided in. The 
+* language codes in TMDB are usually mated to a country code in the format of `en-US` to provide more localized results.
+* @return {array} An array of movies.
+*/
+export async function fetchMovieDetailed(movieId, languageCode = "en-IE") {
   let response = await fetch(
     `${BASE_URL}movie/${movieId}?api_key=${
       import.meta.env.VITE_API_KEY
@@ -93,6 +114,17 @@ export async function fetchMovieDetailed(movieId, languageCode = "en-US") {
   return response.json();
 }
 
+/**
+* Fetch the latest movies from TMDB with detailed data. This includes: release dates based on
+* the country code provided, trailers (videos), and credits.
+* @param {string} sortBy - The field to sort by. It is the form of: 
+* `<sort_field>.<sort_order_abbreviation>` e.g. 'vote_average.asc' where the field is `vote_average` 
+* 	and the sort order is ascending. Valid values for sort_order_abbreviation are: `asc` and `desc`.
+* @param {object} filterOptions - An object containing fields to filter the results by. The fields include:
+* `languageCode`, `countryCode`, `page`, `releaseDateFrom`, `releaseDateTo`, `minRating`, `maxRating`, 
+* `minVotes`, `maxVotes`, `minDuration`, `maxDuration`.
+* @return {array} An array of movies.
+*/
 export async function fetchMoviesDetailed(sortBy ="vote_average.desc", filterOptions = { page: 1}){
   let fetchMoviePromises = [];
 	let countryCode = filterOptions.countryCode || "IE"; // Ireland
@@ -121,7 +153,7 @@ export async function fetchMoviesDetailed(sortBy ="vote_average.desc", filterOpt
   return sortedMovies;
 }
 
-/* Update movie with country-specific release date and certification */
+/** Modify movie object to have country-specific release date and certification fields */
 function processCountryDetails(movies, countryCode) {
   let updatedMovies = movies.map((movie) => {
     let releaseDatesObj = movie.release_dates.results.find(

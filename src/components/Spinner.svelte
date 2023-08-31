@@ -21,7 +21,7 @@
 		margin: 8px;
 		border: 6px solid #fed;
 		border-radius: 50%;
-		animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+		animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 		border-color: #fed transparent transparent transparent;
 	}
 
@@ -37,7 +37,7 @@
 		animation-delay: -0.15s;
 	}
 
-	@keyframes lds-ring {
+	@keyframes spin {
 		0% {
 			transform: rotate(0deg);
 		}

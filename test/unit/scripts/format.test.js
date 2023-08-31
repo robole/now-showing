@@ -13,7 +13,7 @@ describe("format", () => {
     expect(result).toEqual(8.05);
   });
 
-	test("should format a data to 'yyyy-mm-dd'", () => {
+	test("should format a date to 'yyyy-mm-dd'", () => {
     let date = Date.parse("Feb 1, 2023");
 
     expect(formatDate(date)).toEqual("2023-02-01");
