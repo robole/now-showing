@@ -1,7 +1,6 @@
 <script>
 	import { createEventDispatcher } from "svelte";
 	import { fade } from "svelte/transition";
-	import { truncate } from "../scripts/format";
 
 	export let title;
 	export let overview;
@@ -33,7 +32,7 @@
 	}
 
 	function formatRating(num) {
-		return truncate(num, 1);
+		return num.toFixed(1);
 	}
 
 	function formatCertification(value) {

@@ -78,20 +78,20 @@ describe("MovieCard", () => {
   test("should show a rating", () => {
     render(MovieCard, { props: testMovieSimple1 });
 
-    expect(screen.getByText("8")).toBeInTheDocument();
+    expect(screen.getByText("8.0")).toBeInTheDocument();
   });
 
   test("should color code the rating of a movie where if it is 8 or more, it marked as excellent", () => {
     render(MovieCard, { props: testMovieSimple1 });
 
-    let dune = screen.getByText("8");
+    let dune = screen.getByText("8.0");
     expect(dune).toHaveClass("excellent");
   });
 
   test("should color code the rating of a movie where if it between 6.5 and 5.51, it marked as OK", () => {
     render(MovieCard, { props: testMovieSimple2 });
 
-    let dune = screen.getByText("6");
+    let dune = screen.getByText("6.0");
     expect(dune).toHaveClass("ok");
   });
 
