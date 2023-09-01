@@ -37,12 +37,11 @@
 		left: 0;
 		width: 100%;
 		height: var(--header-height);
-		padding-block: 0.25rem;
+
 		background-color: white;
 		border-block-end: 1px solid rgba(0 0 0 / 14%);
 		box-shadow: rgb(0 0 0 / 8%) 0 0 4px, rgb(0 0 0 / 4%) 0 0 8px,
 			rgb(0 0 0 / 2%) 0 0 12px;
-		font-size: 1.1rem;
 	}
 
 	.controls {
@@ -54,7 +53,7 @@
 		align-items: center;
 		justify-content: flex-end;
 
-		padding: 0 var(--default-padding);
+		padding-inline-end: 0.2rem;
 		margin: 0 auto;
 	}
 
